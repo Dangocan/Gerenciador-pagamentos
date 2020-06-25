@@ -31,8 +31,8 @@ CREATE TABLE IF NOT EXISTS divisao
 CREATE TABLE IF NOT EXISTS pagamento
 (
     pag_id          INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, -- id do pagamento
-    usu_id_pagador  INTEGER NOT NULL,                           -- id do usuario pagador
-    usu_id_receptor INTEGER NOT NULL,                           -- id do usuario a receber
+    usu_pagador_id  INTEGER NOT NULL,                           -- id do usuario pagador
+    usu_receptor_id INTEGER NOT NULL,                           -- id do usuario a receber
     pag_valor       REAL    NOT NULL,                           -- valor pago
     pag_mensagem    TEXT    NULL,                               -- mensagem de pagamento
     pag_datahora    TEXT    NOT NULL,                           -- data e hora do pagamento

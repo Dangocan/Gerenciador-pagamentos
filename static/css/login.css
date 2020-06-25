@@ -1,0 +1,90 @@
+
+h1{
+    border-radius: 0.4em;
+    background-color: blueviolet;
+    font-size: 2em;
+    vertical-align: top;
+    padding: 0.3em;
+    margin: 0.5em 0 0 0.5em;
+    display: inline-block;
+}
+
+header{
+    background-color: purple;
+    padding: 0.5em;
+}
+
+.header-box{
+    position: relative;
+    margin: 0 auto;
+}
+
+.header-list{
+    position: absolute;
+    right: 0em;
+    top: 2em;
+}
+
+.header-list li{
+    margin-left: 1em;
+    display: inline;
+}
+
+.header-list a{
+    text-align: center;
+    color: black;
+    font-weight: bold;
+    font-size: 2em;    
+    text-decoration: none;
+    text-transform: uppercase;
+    
+}
+
+.header-list a:hover {
+    color: #C78C19;
+    transition: 0.6s;
+}
+
+.header-list a:active {
+	color: #088C19;	
+}
+
+/*formulario*/
+main{
+    background-color: darkorchid;
+    padding: 0.5em 0 3em 0;
+}
+
+h2{
+    text-align: center;
+    font-size: 2.5em;
+    font-weight: bold;
+    padding: 0.5em;
+    margin: 0.5em 7em 0.5em 7em;
+    text-transform: uppercase;
+    border: 3px solid black;
+}
+
+form label{
+    text-align: center;
+    font-size: 3em;
+    display: block;
+    padding: 0.2em;
+}
+
+.login-input{
+    display: block;
+    font-size: 3em;
+    margin: 0 70% 0 30%;
+    border-radius: 0.5em;
+}
+/*footer*/
+footer{
+    background-color: purple;
+    text-align: center;
+    padding: 4.5em;
+}
+
+.copyright{
+    text-align: center;
+}

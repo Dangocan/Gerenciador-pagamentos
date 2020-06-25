@@ -1,0 +1,6 @@
+2020-06-25 20:27:12,959 - DEBUG :: database_objects_usuario.log 57 :: SQL Select: SELECT * FROM `usuario` WHERE `usu_id` = :usu_id
+2020-06-25 20:27:12,959 - DEBUG :: database_objects_usuario.log 58 :: SQL Values: {'usu_id': 1}
+2020-06-25 20:27:12,962 - DEBUG :: database_objects_usuario.log 57 :: SQL Select: SELECT * FROM `usuario` WHERE `usu_id` = :usu_id
+2020-06-25 20:27:12,962 - DEBUG :: database_objects_usuario.log 58 :: SQL Values: {'usu_id': 1}
+2020-06-25 20:27:12,963 - DEBUG :: database_objects_usuario.log 57 :: SQL Select: SELECT * FROM `usuario` WHERE `usu_id` = :usu_id
+2020-06-25 20:27:12,963 - DEBUG :: database_objects_usuario.log 58 :: SQL Values: {'usu_id': 2}

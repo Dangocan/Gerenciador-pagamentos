@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS usuario
 (
     usu_id       INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, -- id unico do usuario
-    usu_email    TEXT    NOT NULL,                           -- email do usuario
+    usu_email    TEXT    NOT NULL UNIQUE,                    -- email do usuario
     usu_nome     TEXT    NOT NULL,                           -- nome completo do usuario
     usu_senha    TEXT    NOT NULL,                           -- senha em hash (com salt) do usuario
     usu_salt     TEXT    NOT NULL,                           -- salt (aleatorio) do usuario
@@ -36,6 +36,6 @@ CREATE TABLE IF NOT EXISTS pagamento
     pag_valor       REAL    NOT NULL,                           -- valor pago
     pag_mensagem    TEXT    NULL,                               -- mensagem de pagamento
     pag_datahora    TEXT    NOT NULL,                           -- data e hora do pagamento
-    FOREIGN KEY (usu_id_pagador) REFERENCES usuario (usu_id),
-    FOREIGN KEY (usu_id_receptor) REFERENCES usuario (usu_id)
+    FOREIGN KEY (usu_pagador_id) REFERENCES usuario (usu_id),
+    FOREIGN KEY (usu_receptor_id) REFERENCES usuario (usu_id)
 );

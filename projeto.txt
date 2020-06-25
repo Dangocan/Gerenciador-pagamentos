@@ -117,25 +117,26 @@ Conta[object]{
    con_titulo:    TEXT
    con_descricao: TEXT    NULL,
    con_datahora:  TEXT
+   con_divisoes:  [Divisao[object]]
 
 }
 
 Divisao[object]
 {
     div_id:    INTEGER
-    con_object: Conta[object]
+    con_id:    INTEGER
     usu_id:    INTEGER
     div_valor: REAL
 }
 
 Pagamento[object]
 
-    pag_id:          INTEGER
-    usu_pagador_object:  Usuario[object]
-    usu_receptor_object:  Usuario[object]
-    pag_valor:       REAL
-    pag_mensagem:    TEXT    NULL
-    pag_datahora:    TEXT
+    pag_id:                 INTEGER
+    usu_pagador_object:     Usuario[object]
+    usu_receptor_object:    Usuario[object]
+    pag_valor:              REAL
+    pag_mensagem:           TEXT    NULL
+    pag_datahora:           TEXT
 );
 
 
@@ -171,7 +172,7 @@ urls apis:
             201 - Usuario[object]
             400 - Error[object]
     cadastrar_conta: /api/cadastrar/conta [{id/mensagem/status}] POST
-        params: con_titulo, con_descricao, usu_id, divisoes: [div_id, usu_id, div_valor]
+        params: con_titulo, con_descricao, usu_id, con_divisoes: [div_id, usu_id, div_valor]
         return:
             201 - Conta[object]
             400 - Error[object]

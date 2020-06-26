@@ -191,9 +191,19 @@
       <DataType>TEXT|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <key id="48" parent="11">
+    <index id="48" parent="11" name="sqlite_autoindex_usuario_1">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>usu_email</ColNames>
+      <ColumnCollations></ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <key id="49" parent="11">
       <ColNames>usu_id</ColNames>
       <Primary>1</Primary>
+    </key>
+    <key id="50" parent="11">
+      <ColNames>usu_email</ColNames>
+      <UnderlyingIndexName>sqlite_autoindex_usuario_1</UnderlyingIndexName>
     </key>
   </database-model>
 </dataSource>

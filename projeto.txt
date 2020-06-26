@@ -144,7 +144,7 @@ Error[object]{
     mensagem: TEXT
 }
 
-urls apis:
+urls apis NEED AUTHENTICATION:
     usuarios: /api/usuarios GET
         params: -
         return:
@@ -155,7 +155,6 @@ urls apis:
         return:
             200 - Usuario[object]
             400 - Error[object]
-            404 - Error[object] => Senha/Email não corretos/ nao encontrado
     contas: /api/contas  GET
         params:  -
         return:

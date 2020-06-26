@@ -19,6 +19,12 @@ class Conta:
     def __repr__(self):
         return f"""<Conta {self.con_id} {self.usu_id} {self.con_titulo} {self.con_descricao} {self.con_datahora}>"""
 
+    def __eq__(self, other: typing.Union[int, str, Conta]):
+        if type(other) is Conta:
+            return self.con_id == other.con_id
+        else:
+            return str(self.con_id) == str(other)
+
     @property
     def usu_object(self) -> database.objects.Usuario:
         return database.objects.Usuario.get_by_id(self.usu_id)
@@ -58,7 +64,7 @@ class Conta:
     #         return cls(**db.select(sql_select, con_id=con_id)[0])
 
     @classmethod
-    def get_by_id(cls, con_id):
+    def get_by_id(cls, con_id) -> Conta:
         return cls.get(sql_select=database.utils.make_select("con_id", t_name="conta"), values={"con_id": con_id})[0]
 
     @classmethod
@@ -69,9 +75,18 @@ class Conta:
             return [cls(**objct_dict) for objct_dict in db.select(sql_select, **values)]
 
     @classmethod
+    def get_by_user_id(cls, usu_id) -> typing.List[Conta]:
+        contas = cls.get(sql_select=database.utils.make_select("usu_id", t_name="conta"), values={"usu_id": usu_id})
+        divisoes = database.objects.Divisao.get_by_user_id(usu_id)
+        for divisao in divisoes:
+            if divisao.con_id not in contas:
+                contas.append(divisao.con_object)
+        return contas
+
+    @classmethod
     def new_conta(cls, *, con_titulo, con_descricao, usu_id, con_divisoes) -> Conta:
         logger.debug("New bill")
-        con_datahora = (datetime.now() + timedelta(hours=3)).strftime(settings.STDDATETIMEFORMAT)
+        con_datahora = datetime.utcnow().strftime(settings.STDDATETIMEFORMAT)
         conta_dict = {"usu_id": usu_id, "con_titulo": con_titulo, "con_descricao": con_descricao, "con_datahora": con_datahora}
         if len(con_divisoes) == 0:
             raise Exception("Not enough divisions")
@@ -99,6 +114,7 @@ logger = utils.get_logger(__file__)
 
 if __name__ == "__main__":
     import json
+
     c = Conta.get_by_id(7)
     print(json.dumps(c, default=lambda x: x.json(), indent=4))
     # c = Conta.new_conta(con_titulo="titulo", con_descricao="descricao", usu_id="1", con_divisoes=[{"usu_id": "1", "div_valor": "17.50"}, {"usu_id": "2", "div_valor": "17.50"}])
@@ -107,4 +123,3 @@ if __name__ == "__main__":
 
     #
     # # print(c.json())
-

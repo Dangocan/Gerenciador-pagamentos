@@ -1,4 +1,0 @@
-2020-06-25 20:27:12,958 - DEBUG :: database_objects_conta.log 67 :: SQL Select: SELECT * FROM `conta` WHERE `con_id` = :con_id
-2020-06-25 20:27:12,958 - DEBUG :: database_objects_conta.log 68 :: SQL Values: {'con_id': 7}
-2020-06-25 20:27:12,960 - DEBUG :: database_objects_conta.log 31 :: SQL Select: SELECT * FROM `divisao` WHERE `con_id` = :con_id
-2020-06-25 20:27:12,961 - DEBUG :: database_objects_conta.log 32 :: SQL Values: {'con_id': 7}

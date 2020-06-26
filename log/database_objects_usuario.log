@@ -1,6 +1,12 @@
-2020-06-25 20:27:12,959 - DEBUG :: database_objects_usuario.log 57 :: SQL Select: SELECT * FROM `usuario` WHERE `usu_id` = :usu_id
-2020-06-25 20:27:12,959 - DEBUG :: database_objects_usuario.log 58 :: SQL Values: {'usu_id': 1}
-2020-06-25 20:27:12,962 - DEBUG :: database_objects_usuario.log 57 :: SQL Select: SELECT * FROM `usuario` WHERE `usu_id` = :usu_id
-2020-06-25 20:27:12,962 - DEBUG :: database_objects_usuario.log 58 :: SQL Values: {'usu_id': 1}
-2020-06-25 20:27:12,963 - DEBUG :: database_objects_usuario.log 57 :: SQL Select: SELECT * FROM `usuario` WHERE `usu_id` = :usu_id
-2020-06-25 20:27:12,963 - DEBUG :: database_objects_usuario.log 58 :: SQL Values: {'usu_id': 2}
+2020-06-26 14:45:21,231 - DEBUG :: database_objects_usuario.log 76 :: SQL Select: SELECT * FROM `usuario` WHERE `usu_id` = :usu_id
+2020-06-26 14:45:21,231 - DEBUG :: database_objects_usuario.log 77 :: SQL Values: {'usu_id': 1}
+2020-06-26 14:45:21,232 - DEBUG :: database_objects_usuario.log 76 :: SQL Select: SELECT * FROM `usuario`
+2020-06-26 14:45:21,232 - DEBUG :: database_objects_usuario.log 77 :: SQL Values: {}
+2020-06-26 14:45:25,750 - DEBUG :: database_objects_usuario.log 82 :: Authenticate user with email: a@a.com
+2020-06-26 14:45:25,751 - DEBUG :: database_objects_usuario.log 76 :: SQL Select: SELECT * FROM `usuario` WHERE `usu_email` = :usu_email
+2020-06-26 14:45:25,751 - DEBUG :: database_objects_usuario.log 77 :: SQL Values: {'usu_email': 'a@a.com'}
+2020-06-26 14:45:25,752 - DEBUG :: database_objects_usuario.log 92 :: Authenticated
+2020-06-26 14:45:29,693 - DEBUG :: database_objects_usuario.log 82 :: Authenticate user with email: a@a.com
+2020-06-26 14:45:29,693 - DEBUG :: database_objects_usuario.log 76 :: SQL Select: SELECT * FROM `usuario` WHERE `usu_email` = :usu_email
+2020-06-26 14:45:29,694 - DEBUG :: database_objects_usuario.log 77 :: SQL Values: {'usu_email': 'a@a.com'}
+2020-06-26 14:45:29,695 - DEBUG :: database_objects_usuario.log 95 :: Wrong password

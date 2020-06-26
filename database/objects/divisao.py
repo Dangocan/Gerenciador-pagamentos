@@ -1,6 +1,6 @@
 from __future__ import annotations
 import typing
-from datetime import datetime, timedelta
+from datetime import datetime
 import database.utils
 import database
 import settings
@@ -49,8 +49,12 @@ class Divisao:
     #         return cls(**db.select(sql_select, div_id=div_id)[0])
 
     @classmethod
-    def get_by_id(cls, div_id):
+    def get_by_id(cls, div_id) -> Divisao:
         return cls.get(sql_select=database.utils.make_select("div_id", t_name="divisao"), values={"div_id": div_id})[0]
+
+    @classmethod
+    def get_by_user_id(cls, usu_id) -> typing.List[Divisao]:
+        return cls.get(sql_select=database.utils.make_select("usu_id", t_name="divisao"), values={"usu_id": usu_id})
 
     @classmethod
     def get(cls, *, sql_select: str, values: dict) -> typing.List[Divisao]:

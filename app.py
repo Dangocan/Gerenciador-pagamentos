@@ -8,22 +8,11 @@ from database.objects import Divisao, Conta, Pagamento, Usuario
 import json
 
 app = Flask(__name__, static_folder=os.path.join(settings.ROOT_DIRPATH, "static"), template_folder=os.path.join(settings.ROOT_DIRPATH, "templates"))
-app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+app.secret_key = utils.get_keys()["APP_SECRET_KEY"]
 
 
+# app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 # import os; print(os.urandom(16))
-#
-# @app.before_request
-# def before_request_func():
-#     print("before_request is running!")
-# @app.errorhandler(404)
-# def http_404_handler(error):
-#     return "<p>HTTP 404 Error Encountered</p>", 404
-#
-#
-# @app.errorhandler(500)
-# def http_500_handler(error):
-#     return "<p>HTTP 500 Error Encountered</p>", 500
 
 def authenticate(f):
     @wraps(f)

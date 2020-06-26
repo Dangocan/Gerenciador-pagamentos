@@ -21,5 +21,10 @@ def get_logger(path: str, LOG_NAME: str = None, propagate: bool = False) -> logg
     return logger_maker
 
 
+def get_keys() -> dict:
+    with open(settings.KEYS_PATH, "r", encoding="utf8") as f:
+        return json.load(f)
+
+
 CURRENT_DIRPATH = os.path.dirname(__file__)
 logger = get_logger(__file__)

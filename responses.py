@@ -10,7 +10,9 @@ def resposta(dado: typing.Union[str, list, dict, Conta, Usuario, Pagamento, Divi
             "message": dado
         }
     else:
-        data = dado
+        data = {
+            "item" if dado is not list else "items": dado
+        }
     if msg is not None:
         data.update({"message": msg})
     return Response(response=json.dumps(data, default=lambda x: x.json(), indent=4), status=status, mimetype="application/json")

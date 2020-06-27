@@ -65,6 +65,17 @@ h2{
     border: 3px solid black;
 }
 
+.resumo-lista{
+    text-align: center;
+    font-size: 2em;
+    font-weight: bold;
+    padding: 0.8em;
+    margin: 0.5em 12em 0.5em 12em;
+    text-transform: uppercase;
+    border: 2px solid darkblue;
+    color: darkblue;
+}
+
 form label{
     text-align: center;
     font-size: 3em;
@@ -72,11 +83,20 @@ form label{
     padding: 0.2em;
 }
 
-.login-input{
+.input-padrao{
     display: block;
     font-size: 3em;
     margin: 0 70% 0 30%;
     border-radius: 0.5em;
+}
+
+.submit{
+    background-color: blue;
+    display: block;
+    font-size: 3em;
+    margin: 0.5em 55% 0.5em 45%;
+    border-radius: 0.4em;
+
 }
 /*footer*/
 footer{
@@ -87,4 +107,38 @@ footer{
 
 .copyright{
     text-align: center;
+}
+
+/*config css*/
+.label-config{
+    text-align: left;
+    font-size: 1.5em;
+    display: inline;
+    padding: 0.2em;
+}
+
+.input-config{
+    display: block;
+    font-size: 1.5em;
+    margin: 0.3em 0 0.3em 0.2em;
+    border-radius: 0.5em;
+}
+
+.submit-config{
+    background-color: blue;
+    display: block;
+    font-size: 2em;
+    text-align: left;
+    margin-left: 0.2em;
+    border-radius: 0.4em;
+}
+
+.logout-config{
+    background-color: red;
+    display: block;
+    font-size: 1.5em;
+    text-align: left;
+    margin-left: 0.2em;
+    margin-top: 0.2em;
+    border-radius: 0.4em;
 }

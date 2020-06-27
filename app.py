@@ -1,11 +1,10 @@
 from functools import wraps
-from flask import Flask, render_template, redirect, url_for, Response, g, session, request
+from flask import Flask, render_template, redirect, url_for, g, session, request
 import os
 import settings
 import utils
 from responses import resposta
-from database.objects import Divisao, Conta, Pagamento, Usuario
-import json
+from database.objects import Conta, Pagamento, Usuario
 
 app = Flask(__name__, static_folder=os.path.join(settings.ROOT_DIRPATH, "static"), template_folder=os.path.join(settings.ROOT_DIRPATH, "templates"))
 app.secret_key = utils.get_keys()["APP_SECRET_KEY"]
@@ -96,7 +95,7 @@ def page_resumo():
 @app.route("/configuracoes")
 @authenticate
 def page_configuracoes():
-    return render_template("configuracoes.html")
+    return render_template("configurações.html")
 
 
 @app.route("/api/cadastrar/usuario", methods=["POST"])

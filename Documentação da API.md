@@ -1,6 +1,6 @@
-URLs de acesso da API:
+# URLs de acesso da API
  
-# GET /api/usuarios *
+## GET /api/usuarios *
 Acesso as informações de todos os usuarios
 #### Parâmetros necessários: 
 - Nenhum
@@ -8,7 +8,7 @@ Acesso as informações de todos os usuarios
 - 200: [Usuario[object]]
 - 400: Error[object]
 
-# POST /api/entrar
+## POST /api/entrar
 Realiza login do usuário
 #### Parâmetros necessários: 
 - usu_email
@@ -17,7 +17,7 @@ Realiza login do usuário
 - 200: Usuario[object]
 - 400: Error[object]
 
-# GET /api/contas *
+## GET /api/contas *
 Realiza login do usuário
 #### Parâmetros necessários:
 - usu_email
@@ -26,7 +26,7 @@ Realiza login do usuário
 - 200: [Contas[object]
 - 400: Error[object]
 
-# GET /api/pagamentos *
+## GET /api/pagamentos *
 Pegar pagamentos do usuario na sessão
 #### Parâmetros necessários:
 - Nenhum
@@ -34,7 +34,7 @@ Pegar pagamentos do usuario na sessão
 - 200: [Pagamento[object]]
 - 400:  Error[object]
 
-# POST /api/cadastrar/usuario
+## POST /api/cadastrar/usuario
 #### Parâmetros necessários:
 - usu_email
 - usu_senha
@@ -43,7 +43,7 @@ Pegar pagamentos do usuario na sessão
 - 201: Usuario[object]
 - 400: Error[object]
 
-# POST /api/cadastrar/conta *
+## POST /api/cadastrar/conta *
 Cadastrar conta
 #### Parâmetros necessários:
 - con_titulo
@@ -54,7 +54,7 @@ Cadastrar conta
 - 201: Conta[object]
 - 400: Error[object]
 
-# POST /api/cadastrar/pagamento *
+## POST /api/cadastrar/pagamento *
 Cadastrar um pagamento
 #### Parâmetros necessários:
 - usu_pagador_id

@@ -140,9 +140,10 @@ Pagamento[object]
 );
 
 
-Error[object]{
+Resposta[object]{
     mensagem: TEXT
 }
+
 
 urls apis NEED AUTHENTICATION:
     usuarios: /api/usuarios GET

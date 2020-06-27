@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang = "pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <title>Configurações</title>
+
+        <link rel="stylesheet" href="C:\Users\DGC\Desktop\Gerenciador-pagamentos\static\css\reset.css">
+        <link rel="stylesheet" href="C:\Users\DGC\Desktop\Gerenciador-pagamentos\static\css\comum.css">
+    </head>
+
+    <body>
+        <header>
+            <div class="header-box">
+				<h1>Gerenciador<br>pagamentos</h1>
+
+				<nav>
+					<ul class="header-list">
+						<li><a href="file:///C:/Users/DGC/Desktop/Gerenciador-pagamentos/templates/adicionar_conta.html">Adicionar conta</a></li>
+                        <li><a href="file:///C:/Users/DGC/Desktop/Gerenciador-pagamentos/templates/pagamento.html">Pagamento</a></li>
+                        <li><a href="file:///C:/Users/DGC/Desktop/Gerenciador-pagamentos/templates/resumo.html">Resumo</a></li>
+                        <li><a href="file:///C:/Users/DGC/Desktop/Gerenciador-pagamentos/templates/configura%C3%A7%C3%B5es.html">&#9881;</a></li>
+					</ul>
+				</nav>
+			</div>
+        </header>
+
+        <main>
+            <h2>Configurações</h2>
+            <form>
+                <label for="nome" class="label-config">Mudar nome: </label>
+                <input type="email" name = "usu_name" id="nome" class="input-config" placeholder="novonome">
+
+                <label for="email" class="label-config">Mudar email: </label>
+                <input type="email" name = "usu_email" id="email" class="input-config" placeholder="novoemail@dominio.com">
+
+                <label for="mudar-senha" class="label-config">Mudar senha: </label>
+                <input type="password" id="mudar-senha" class="input-config" placeholder="nova senha">
+                
+                <label for="senha" class="label-config">Senha: </label>
+                <input type="password" id="senha" name = "usu_senha" class="input-config" required placeholder="suasenha">
+
+                <input type= "submit" class = "submit-config">
+            </form>
+            <input type= "button" class = "logout-config" value="log out">
+        </main>
+
+        <footer>
+            <p class="copyright">&copy; Copyright DalexCo - 2020</p>
+        </footer>
+    </body>
+</html>

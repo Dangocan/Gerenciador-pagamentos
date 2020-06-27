@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang = "pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <title>Adicionar Conta</title>
+
+        <link rel="stylesheet" href="C:\Users\DGC\Desktop\Gerenciador-pagamentos\static\css\reset.css">
+        <link rel="stylesheet" href="C:\Users\DGC\Desktop\Gerenciador-pagamentos\static\css\comum.css">
+        <link rel="stylesheet" href="C:\Users\DGC\Desktop\Gerenciador-pagamentos\static\css\adicionar_conta.css">
+    </head>
+
+    <body>
+        <header>
+            <div class="header-box">
+				<h1>Gerenciador<br>pagamentos</h1>
+
+				<nav>
+					<ul class="header-list">
+						<li><a href="file:///C:/Users/DGC/Desktop/Gerenciador-pagamentos/templates/adicionar_conta.html">Adicionar conta</a></li>
+                        <li><a href="file:///C:/Users/DGC/Desktop/Gerenciador-pagamentos/templates/pagamento.html">Pagamento</a></li>
+                        <li><a href="file:///C:/Users/DGC/Desktop/Gerenciador-pagamentos/templates/resumo.html">Resumo</a></li>
+                        <li><a href="file:///C:/Users/DGC/Desktop/Gerenciador-pagamentos/templates/configura%C3%A7%C3%B5es.html">&#9881;</a></li>
+					</ul>
+				</nav>
+			</div>
+        </header>
+
+        <main>
+            <h2>Nova conta</h2>
+            <form >
+                <label for="titulo">Título</label>
+                <input type="text" id = "titulo" name = "titulo" class="input-padrao" required placeholder="titulo">
+
+                <label for="descrição">descrição</label>
+                <input type="text" id = "descrição" name = "description" class="input-padrao" required placeholder="descrição">
+                
+                <label for="valor-total">Valor total</label>
+                <input type="text" id = "valor-total" class="input-padrao" required placeholder="R$xx-xx">
+
+                <label for="nova-divisao">Divisões: </label>
+                <input type="button" id = "nova-divisao" class="input-padrao" value="+">
+
+                <label for="id-usuario-divisao">ID de usuario</label>
+                <input type="text" id = "id-usuario-divisao" name = "usu_id" class="input-padrao" required placeholder="0000">
+
+                <label for="valor-total">Parte na divisão</label>
+                <input type="text" id = "valor-total" class="input-padrao" required placeholder="R$xx-xx">
+
+                <input type= "submit" class = "submit">
+            </form>
+        </main>
+
+        <footer>
+            <p class="copyright">&copy; Copyright DalexCo - 2020</p>
+        </footer>
+    </body>
+</html>

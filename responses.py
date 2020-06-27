@@ -11,7 +11,7 @@ def resposta(dado: typing.Union[str, list, dict, Conta, Usuario, Pagamento, Divi
         }
     else:
         data = {
-            "item" if dado is not list else "items": dado
+            "item" if type(dado) is not list else "items": dado
         }
     if msg is not None:
         data.update({"message": msg})

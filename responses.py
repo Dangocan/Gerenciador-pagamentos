@@ -7,11 +7,11 @@ from database.objects import *
 def resposta(dado: typing.Union[str, list, dict, Conta, Usuario, Pagamento, Divisao], status: int = 200, *, msg: str = None) -> Response:
     if type(msg) is str:
         data = {
-            "message": dado
+            "mensagem": dado
         }
     else:
         data = {
-            "item" if type(dado) is not list else "items": dado
+            "item" if type(dado) is not list else "itens": dado
         }
     if msg is not None:
         data.update({"message": msg})

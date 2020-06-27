@@ -1,12 +1,12 @@
 # URLs de acesso da API
- 
+__Os parâmetros devem ser todos passados em forma de JSON__
 ## GET /api/usuarios *
 Acesso as informações de todos os usuarios
 #### Parâmetros necessários: 
 - Nenhum
 #### Respostas:
 - 200: [Usuario[object]]
-- 400: Error[object]
+- 400: Resposta[object]
 
 ## POST /api/entrar
 Realiza login do usuário
@@ -15,24 +15,31 @@ Realiza login do usuário
 - usu_senha
 #### Respostas:
 - 200: Usuario[object]
-- 400: Error[object]
+- 400: Resposta[object]
+
+## POST /api/sair
+Realiza o logout do usuário
+#### Parâmetros necessários: 
+- Nenhum
+#### Respostas:
+- 200: Resposta[object]
 
 ## GET /api/contas *
-Realiza login do usuário
+Pegar as contas das quais o usuário da sessão tem participação
 #### Parâmetros necessários:
 - usu_email
 - usu_senha
 #### Respostas:
 - 200: [Contas[object]
-- 400: Error[object]
+- 400: Resposta[object]
 
 ## GET /api/pagamentos *
-Pegar pagamentos do usuario na sessão
+Pegar pagamentos do qual o usuário da sessão tem participação
 #### Parâmetros necessários:
 - Nenhum
 #### Respostas:
 - 200: [Pagamento[object]]
-- 400:  Error[object]
+- 400:  Resposta[object]
 
 ## POST /api/cadastrar/usuario
 #### Parâmetros necessários:
@@ -41,7 +48,7 @@ Pegar pagamentos do usuario na sessão
 - usu_nome
 #### Respostas:
 - 201: Usuario[object]
-- 400: Error[object]
+- 400: Resposta[object]
 
 ## POST /api/cadastrar/conta *
 Cadastrar conta
@@ -52,7 +59,7 @@ Cadastrar conta
 - con_divisoes: [div_id, usu_id, div_valor]
 #### Respostas:
 - 201: Conta[object]
-- 400: Error[object]
+- 400: Resposta[object]
 
 ## POST /api/cadastrar/pagamento *
 Cadastrar um pagamento
@@ -63,17 +70,32 @@ Cadastrar um pagamento
 - pag_mensagem
 #### Respostas:
 - 201: Conta[object]
-- 400: Error[object]
+- 400: Resposta[object]
+
+## POST /api/atualizar/usuario *
+Realizar atualização de informações do usuário
+#### Parâmetros necessários:
+- usu_id
+#### Parâmetros opcionais:
+Informe os campos que deseja realizar a alteração
+- usu_email
+- usu_nome
+- usu_senha
+#### Respostas:
+- 202: Usuario[object]
+- 400: Resposta[object]
+- 401: Resposta[object]
 
 
-\* Necessita de autenticação            
+
+__\* Necessita de autenticação__            
 ## Objetos de respostas
     Usuario[object]
     {
         usu_id:       INTEGER
         usu_email:    TEXT
         usu_nome:     TEXT
-        usu_datahora: TEXT    NOT NULL
+        usu_datahora: TEXT
     }
     
     Conta[object]{

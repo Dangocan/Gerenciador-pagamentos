@@ -12,12 +12,24 @@ import hashlib
 def hash_password(password: str, salt: str = None) -> typing.Tuple[str, str]:
     if salt is None:
         salt = secrets.token_hex(20)
-    hashed_password = hashlib.sha256((salt + password).encode("utf8")).hexdigest()
+    hashed_password = hashlib.sha256((salt + password).encode("UTF-8")).hexdigest()
     return hashed_password, salt
 
 
+def is_valid_email(email: str) -> bool:
+    return email != ""
+
+
+def is_valid_password(password: str) -> bool:
+    return type(password) is str and len(password) > 0
+
+
+def is_valid_name(name: str) -> bool:
+    return type(name) is str and len(name) > 0
+
+
 class Usuario:
-    def __init__(self, usu_id, usu_email, usu_nome, usu_senha, usu_salt, usu_datahora):
+    def __init__(self, usu_id: int, usu_email: str, usu_nome: str, usu_senha: str, usu_salt: str, usu_datahora: str):
         self.usu_id = usu_id
         self.usu_email = usu_email
         self.usu_nome = usu_nome
@@ -38,13 +50,10 @@ class Usuario:
 
     @classmethod
     def new(cls, *, usu_email: str, usu_nome: str, usu_senha: str) -> Usuario:
-        assert type(usu_email) is str
-        assert type(usu_nome) is str
-        assert type(usu_senha) is str
         logger.debug("New user")
-        if usu_email == "" or usu_nome == "" or usu_senha == "":
-            logger.debug(f"Email/nome/senha vazio")
-            raise Exception("Campos não preenchidos")
+        if not (is_valid_email(usu_email) and is_valid_name(usu_nome) and is_valid_password(usu_senha)):
+            logger.debug(f"Invalid field(s)")
+            raise Exception("Campos inválidos")
         usu_datahora = datetime.utcnow().strftime(settings.STDDATETIMEFORMAT)
         usu_senha, usu_salt = hash_password(usu_senha)
         object_dict = {"usu_email": usu_email, "usu_nome": usu_nome, "usu_senha": usu_senha, "usu_datahora": usu_datahora, "usu_salt": usu_salt}
@@ -56,6 +65,41 @@ class Usuario:
 
             sql_select = database.utils.make_select("usu_id", t_name="usuario")
             logger.debug(f"SQL Select: {sql_select}")
+            print(db.select(sql_select, usu_id=usu_id)[0])
+            return cls(**db.select(sql_select, usu_id=usu_id)[0])
+
+    @classmethod
+    def update(cls, *, usu_id: typing.Union[int, str], usu_email: str = None, usu_nome: str = None, usu_senha: str = None) -> Usuario:
+        logger.debug("Update user")
+        updates = {"usu_id": usu_id}
+        if usu_email is not None:
+            if is_valid_email(usu_email):
+                updates["usu_email"] = usu_email
+            else:
+                logger.debug("Invalid email")
+                raise Exception("Campo inválido")
+        if usu_nome is not None:
+            if is_valid_name(usu_nome):
+                updates["usu_nome"] = usu_nome
+            else:
+                logger.debug("Invalid name")
+                raise Exception("Campo inválido")
+        if usu_senha is not None:
+            if is_valid_password(usu_senha):
+                updates["usu_senha"], updates["usu_salt"] = hash_password(usu_senha)
+            else:
+                logger.debug("Invalid password")
+                raise Exception("Campo inválido")
+
+        with database.Database() as db:
+            sql_update = database.utils.make_update(where_list=["usu_id"], set_list=list(updates.keys()), t_name="usuario")
+            logger.debug(f"SQL Update: {sql_update}")
+            logger.debug(f"SQL Values: {updates}")
+            db.update(sql_update, **updates)
+
+            sql_select = database.utils.make_select("usu_id", t_name="usuario")
+            logger.debug(f"SQL Select: {sql_select}")
+            logger.debug(f"ID: {usu_id}")
             return cls(**db.select(sql_select, usu_id=usu_id)[0])
 
     @classmethod
@@ -102,6 +146,7 @@ if __name__ == "__main__":
     pass
     # u = Usuario.new(usu_email="a@a.com", usu_nome="a", usu_senha="senha")
     # u = Usuario.new(usu_email="b@b.com", usu_nome="b", usu_senha="senhb")
-    # u = Usuario.get_by_id("606492")
+    # u = Usuario.get_by_id("1")
+    # u = Usuario.update(usu_id=1, usu_nome="jonasi")
     # print(u)
     # print(hash_password("alex", "039df246fbdb0a54611af4a5411188d729c8d7d5")[0] == "180f7811021dad67cffefc1155f0e0a41167d910d749ad5d48927f4b5894fe19")

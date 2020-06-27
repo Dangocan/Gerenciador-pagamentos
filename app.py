@@ -160,7 +160,7 @@ def api_usuarios():
 @authenticate_api
 def api_contas():
     try:
-        return Conta.get_by_user_id(g.usuario.usu_id)
+        return resposta(Conta.get_by_user_id(g.usuario.usu_id))
     except Exception as e:
         logger.exception(e)
         return resposta("Um erro ocorreu ao buscar contas", 400)
@@ -170,7 +170,7 @@ def api_contas():
 @authenticate_api
 def api_pagamentos():
     try:
-        return Pagamento.get_by_user_id(g.usuario.usu_id)
+        return resposta(Pagamento.get_by_user_id(g.usuario.usu_id))
     except Exception as e:
         logger.exception(e)
         return resposta("Um erro ocorreu ao buscar pagamentos", 400)
@@ -196,6 +196,20 @@ def api_cadastrar_pagamento():
     except Exception as e:
         logger.debug(e)
         return resposta("Não foi possivel cadastrar o pagamento", 400)
+
+
+@app.route("/api/atualizar/usuario", methods=["POST"])
+@authenticate_api
+def api_atualizar_usuario():
+    request_data = request.form.to_dict() or request.get_json(force=True, silent=True) or {}
+    try:
+        if str(request_data.get("usu_id", None)) == str(g.usuario.usu_id):
+            return resposta(Usuario.update(**request_data), 202)
+        else:
+            return resposta("Usuário não tem autorização para alterar.", 401)
+    except Exception as e:
+        logger.debug(e)
+        return resposta("Não foi possivel realizar a atualização", 400)
 
 
 logger = utils.get_logger(__file__)

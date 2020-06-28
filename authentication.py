@@ -12,8 +12,6 @@ def authenticate(f):
         if "usu_id" in session:
             try:
                 g.usuario = Usuario.get_by_id(session["usu_id"])
-            except IndexError:
-                logger.debug("User not found")
             except Exception as e:
                 logger.exception(e)
             else:

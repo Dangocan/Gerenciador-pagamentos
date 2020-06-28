@@ -1,6 +1,6 @@
 # URLs de acesso da API
 __Os parâmetros devem ser todos passados em forma de JSON__
-## GET /api/usuarios *
+## GET /api/get/usuarios *
 Acesso as informações de todos os usuarios
 #### Parâmetros necessários: 
 - Nenhum
@@ -17,6 +17,14 @@ Realiza login do usuário
 - 200: Usuario[object]
 - 400: Resposta[object]
 
+## GET /api/get/me *
+Informações do usuário
+#### Parâmetros necessários: 
+- Nenhum
+#### Respostas:
+- 200: [Usuario[object]]
+- 400/401/404: Resposta[object]
+
 ## POST /api/sair
 Realiza o logout do usuário
 #### Parâmetros necessários: 
@@ -24,7 +32,7 @@ Realiza o logout do usuário
 #### Respostas:
 - 200: Resposta[object]
 
-## GET /api/contas *
+## GET /api/get/contas *
 Pegar as contas das quais o usuário da sessão tem participação
 #### Parâmetros necessários:
 - usu_email
@@ -33,7 +41,7 @@ Pegar as contas das quais o usuário da sessão tem participação
 - 200: [Contas[object]
 - 400/401/404: Resposta[object]
 
-## GET /api/pagamentos *
+## GET /api/get/pagamentos *
 Pegar pagamentos do qual o usuário da sessão tem participação
 #### Parâmetros necessários:
 - Nenhum

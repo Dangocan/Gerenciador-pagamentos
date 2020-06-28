@@ -4,7 +4,7 @@ import utils
 from responses import resposta
 from database.objects import Conta, Pagamento, Usuario
 from authentication import authenticate, unauthenticate, authenticate_api
-from errors import KnownError, MissingParamsError
+from errors import KnownError, MissingParamsError, UserNotLoggedInError
 
 app = Flask(__name__, static_folder=settings.STATIC_FOLDER, template_folder=settings.TEMPLATES_FOLDER)
 app.secret_key = utils.get_keys()["APP_SECRET_KEY"]
@@ -116,9 +116,21 @@ def api_sair():
         return resposta("Um erro desconhecido ocorreu", 400)
 
 
-@app.route("/api/usuarios")
+@app.route("/api/get/me")
 @authenticate_api
-def api_usuarios():
+def api_get_me():
+    try:
+        return resposta(g.usuario)
+    except KnownError as e:
+        return resposta(e)
+    except Exception as e:
+        logger.exception(e)
+        return resposta("Um erro desconhecido ocorreu", 400)
+
+
+@app.route("/api/get/usuarios")
+@authenticate_api
+def api_get_usuarios():
     try:
         return resposta(Usuario.get_all())
     except KnownError as e:
@@ -128,9 +140,9 @@ def api_usuarios():
         return resposta("Um erro desconhecido ocorreu", 400)
 
 
-@app.route("/api/contas")
+@app.route("/api/get/contas")
 @authenticate_api
-def api_contas():
+def api_get_contas():
     try:
         return resposta(Conta.get_by_user_id(g.usuario.usu_id))
     except KnownError as e:
@@ -140,9 +152,9 @@ def api_contas():
         return resposta("Um erro desconhecido ocorreu", 400)
 
 
-@app.route("/api/pagamentos")
+@app.route("/api/get/pagamentos")
 @authenticate_api
-def api_pagamentos():
+def api_get_pagamentos():
     try:
         return resposta(Pagamento.get_by_user_id(g.usuario.usu_id))
     except KnownError as e:

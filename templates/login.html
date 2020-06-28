@@ -4,8 +4,8 @@
         <meta charset="UTF-8">
         <title>Entrar</title>
 
-        <link rel="stylesheet" href="C:\Users\DGC\Desktop\Gerenciador-pagamentos\static\css\reset.css">
-        <link rel="stylesheet" href="C:\Users\DGC\Desktop\Gerenciador-pagamentos\static\css\comum.css">
+        <link rel="stylesheet" href="\static\css\reset.css">
+        <link rel="stylesheet" href="\static\css\comum.css">
     </head>
 
     <body>
@@ -15,8 +15,8 @@
 
 				<nav>
 					<ul class="header-list">
-						<li><a href="file:///C:/Users/DGC/Desktop/Gerenciador-pagamentos/templates/login.html">Login</a></li>
-						<li><a href="file:///C:/Users/DGC/Desktop/Gerenciador-pagamentos/templates/signup.html">Cadastrar</a></li>
+						<li><a href="/entrar">Login</a></li>
+						<li><a href="/cadastrar">Cadastrar</a></li>
 					</ul>
 				</nav>
 			</div>
@@ -24,7 +24,7 @@
 
         <main>
             <h2>Login</h2>
-            <form>
+            <form id = "form-login">
                 <label for="email">Email</label>
                 <input type="email" name = "usu_email" id="email" class="input-padrao" required placeholder="seuemail@dominio.com">
 
@@ -38,5 +38,8 @@
         <footer>
             <p class="copyright">&copy; Copyright DalexCo - 2020</p>
         </footer>
+
+        <script src = "\static\js\login.js"></script>
+
     </body>
 </html>

@@ -1,59 +1,21 @@
-from functools import wraps
 from flask import Flask, render_template, redirect, url_for, g, session, request
-import os
 import settings
 import utils
 from responses import resposta
 from database.objects import Conta, Pagamento, Usuario
+from authentication import authenticate, unauthenticate, authenticate_api
+from errors import KnownError, MissingParamsError, UserNotLoggedInError
 
-app = Flask(__name__, static_folder=os.path.join(settings.ROOT_DIRPATH, "static"), template_folder=os.path.join(settings.ROOT_DIRPATH, "templates"))
+app = Flask(__name__, static_folder=settings.STATIC_FOLDER, template_folder=settings.TEMPLATES_FOLDER)
 app.secret_key = utils.get_keys()["APP_SECRET_KEY"]
 
 
-# app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 # import os; print(os.urandom(16))
 
-def authenticate(f):
-    @wraps(f)
-    def auth_wrapper(*args, **kwargs):
-        if "usu_id" in session:
-            try:
-                g.usuario = Usuario.get_by_id(session["usu_id"])
-            except IndexError:
-                logger.debug("User not found")
-            except Exception as e:
-                logger.exception(e)
-                return resposta("Um erro desconhecido ocorreu", 400)
-            else:
-                return f(*args, **kwargs)
-        return redirect(url_for("page_entrar"))
-
-    return auth_wrapper
-
-
-def unauthenticate(f):
-    @wraps(f)
-    def unauth_wrapper(*args, **kwargs):
-        session.pop("usu_id", None)
-        g.usuario = None
-        return f(*args, **kwargs)
-
-    return unauth_wrapper
-
-
-def authenticate_api(f):
-    @wraps(f)
-    def auth_api_wrapper(*args, **kwargs):
-        if "usu_id" in session:
-            try:
-                g.usuario = Usuario.get_by_id(session["usu_id"])
-            except IndexError:
-                logger.debug("User not found")
-            else:
-                return f(*args, **kwargs)
-        return resposta("Authorization required", 401)
-
-    return auth_api_wrapper
+@app.errorhandler(500)
+def handle_server_error(e):
+    logger.exception(e)
+    return "Um erro ocorreu no servidor"
 
 
 @app.route("/")
@@ -101,115 +63,144 @@ def page_configuracoes():
 @app.route("/api/cadastrar/usuario", methods=["POST"])
 @unauthenticate
 def api_cadastrar_usuario():
-    request_data = request.form.to_dict() or request.get_json(force=True, silent=True) or {}
+    try:
+        request_data = request.form.to_dict() or request.get_json(force=True, silent=True) or {}
 
-    usu_nome = request_data.get("usu_nome", None)
-    usu_email = request_data.get("usu_email", None)
-    usu_senha = request_data.get("usu_senha", None)
-    if usu_email and usu_senha and usu_nome:
-        try:
+        usu_nome = request_data.get("usu_nome", None)
+        usu_email = request_data.get("usu_email", None)
+        usu_senha = request_data.get("usu_senha", None)
+        if usu_email and usu_senha and usu_nome:
             usuario = Usuario.new(usu_nome=usu_nome, usu_email=usu_email, usu_senha=usu_senha)
-        except Exception as e:
-            logger.debug(e)
-            return resposta("Não foi possivel cadastrar o usuario", 400)
-        else:
             session["usu_id"] = usuario.usu_id
             return resposta(usuario, 201)
-    else:
-        return resposta("Dados faltando para cadastro", 400)
+        else:
+            raise MissingParamsError()
+    except KnownError as e:
+        return resposta(e)
+    except Exception as e:
+        logger.exception(e)
+        return resposta("Um erro desconhecido ocorreu", 400)
 
 
 @app.route("/api/entrar", methods=["POST"])
 @unauthenticate
 def api_entrar():
-    request_data = request.form.to_dict() or request.get_json(force=True, silent=True) or {}
+    try:
+        request_data = request.form.to_dict() or request.get_json(force=True, silent=True) or {}
 
-    usu_email = request_data.get("usu_email", None)
-    usu_senha = request_data.get("usu_senha", None)
-    if usu_email and usu_senha:
-        try:
-            usuario = Usuario.authenticate(usu_email, usu_senha)
-        except Exception as e:
-            logger.debug(e)
-            return resposta("Não foi possivel autenticar o usuario", 400)
-        else:
+        usu_email = request_data.get("usu_email", None)
+        usu_senha = request_data.get("usu_senha", None)
+        if usu_email and usu_senha:
+            usuario = Usuario.authenticate_login(usu_email, usu_senha)
             session["usu_id"] = usuario.usu_id
             return resposta(usuario)
-    else:
-        return resposta("Dados faltando para login", 400)
+        else:
+            raise MissingParamsError()
+    except KnownError as e:
+        return resposta(e)
+    except Exception as e:
+        logger.exception(e)
+        return resposta("Um erro desconhecido ocorreu", 400)
 
 
 @app.route("/api/sair")
 @unauthenticate
 def api_sair():
-    logger.debug("Logged out")
-    return resposta("Sucesso ao sair")
+    try:
+        logger.debug("Logged out")
+        return resposta("Sucesso ao sair")
+    except KnownError as e:
+        return resposta(e)
+    except Exception as e:
+        logger.exception(e)
+        return resposta("Um erro desconhecido ocorreu", 400)
 
 
-@app.route("/api/usuarios")
+@app.route("/api/get/me")
 @authenticate_api
-def api_usuarios():
+def api_get_me():
+    try:
+        return resposta(g.usuario)
+    except KnownError as e:
+        return resposta(e)
+    except Exception as e:
+        logger.exception(e)
+        return resposta("Um erro desconhecido ocorreu", 400)
+
+
+@app.route("/api/get/usuarios")
+@authenticate_api
+def api_get_usuarios():
     try:
         return resposta(Usuario.get_all())
+    except KnownError as e:
+        return resposta(e)
     except Exception as e:
         logger.exception(e)
-        return resposta("Um erro ocorreu ao retornar usuarios", 400)
+        return resposta("Um erro desconhecido ocorreu", 400)
 
 
-@app.route("/api/contas")
+@app.route("/api/get/contas")
 @authenticate_api
-def api_contas():
+def api_get_contas():
     try:
         return resposta(Conta.get_by_user_id(g.usuario.usu_id))
+    except KnownError as e:
+        return resposta(e)
     except Exception as e:
         logger.exception(e)
-        return resposta("Um erro ocorreu ao buscar contas", 400)
+        return resposta("Um erro desconhecido ocorreu", 400)
 
 
-@app.route("/api/pagamentos")
+@app.route("/api/get/pagamentos")
 @authenticate_api
-def api_pagamentos():
+def api_get_pagamentos():
     try:
         return resposta(Pagamento.get_by_user_id(g.usuario.usu_id))
+    except KnownError as e:
+        return resposta(e)
     except Exception as e:
         logger.exception(e)
-        return resposta("Um erro ocorreu ao buscar pagamentos", 400)
+        return resposta("Um erro desconhecido ocorreu", 400)
 
 
 @app.route("/api/cadastrar/conta", methods=["POST"])
 @authenticate_api
 def api_cadastrar_conta():
-    request_data = request.form.to_dict() or request.get_json(force=True, silent=True) or {}
     try:
+        request_data = request.form.to_dict() or request.get_json(force=True, silent=True) or {}
         return resposta(Conta.new_conta(**request_data), 201)
+    except KnownError as e:
+        return resposta(e)
     except Exception as e:
-        logger.debug(e)
-        return resposta("Não foi possivel cadastrar a conta", 400)
+        logger.exception(e)
+        return resposta("Um erro desconhecido ocorreu", 400)
 
 
 @app.route("/api/cadastrar/pagamento", methods=["POST"])
 @authenticate_api
 def api_cadastrar_pagamento():
-    request_data = request.form.to_dict() or request.get_json(force=True, silent=True) or {}
     try:
+        request_data = request.form.to_dict() or request.get_json(force=True, silent=True) or {}
         return resposta(Pagamento.new(**request_data), 201)
+    except KnownError as e:
+        return resposta(e)
     except Exception as e:
-        logger.debug(e)
-        return resposta("Não foi possivel cadastrar o pagamento", 400)
+        logger.exception(e)
+        return resposta("Um erro desconhecido ocorreu", 400)
 
 
 @app.route("/api/atualizar/usuario", methods=["POST"])
 @authenticate_api
 def api_atualizar_usuario():
-    request_data = request.form.to_dict() or request.get_json(force=True, silent=True) or {}
     try:
-        if str(request_data.get("usu_id", None)) == str(g.usuario.usu_id):
-            return resposta(Usuario.update(**request_data), 202)
-        else:
-            return resposta("Usuário não tem autorização para alterar.", 401)
+        request_data = request.form.to_dict() or request.get_json(force=True, silent=True) or {}
+        return resposta(Usuario.update(usuario=g.usuario, **request_data), 202)
+    except KnownError as e:
+        return resposta(e)
     except Exception as e:
-        logger.debug(e)
-        return resposta("Não foi possivel realizar a atualização", 400)
+        logger.exception(e)
+        return resposta("Um erro desconhecido ocorreu", 400)
 
 
 logger = utils.get_logger(__file__)

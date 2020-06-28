@@ -1,12 +1,12 @@
 # URLs de acesso da API
 __Os parâmetros devem ser todos passados em forma de JSON__
-## GET /api/usuarios *
+## GET /api/get/usuarios *
 Acesso as informações de todos os usuarios
 #### Parâmetros necessários: 
 - Nenhum
 #### Respostas:
 - 200: [Usuario[object]]
-- 400: Resposta[object]
+- 400/401/404: Resposta[object]
 
 ## POST /api/entrar
 Realiza login do usuário
@@ -17,6 +17,14 @@ Realiza login do usuário
 - 200: Usuario[object]
 - 400: Resposta[object]
 
+## GET /api/get/me *
+Informações do usuário
+#### Parâmetros necessários: 
+- Nenhum
+#### Respostas:
+- 200: [Usuario[object]]
+- 400/401/404: Resposta[object]
+
 ## POST /api/sair
 Realiza o logout do usuário
 #### Parâmetros necessários: 
@@ -24,22 +32,22 @@ Realiza o logout do usuário
 #### Respostas:
 - 200: Resposta[object]
 
-## GET /api/contas *
+## GET /api/get/contas *
 Pegar as contas das quais o usuário da sessão tem participação
 #### Parâmetros necessários:
 - usu_email
 - usu_senha
 #### Respostas:
 - 200: [Contas[object]
-- 400: Resposta[object]
+- 400/401/404: Resposta[object]
 
-## GET /api/pagamentos *
+## GET /api/get/pagamentos *
 Pegar pagamentos do qual o usuário da sessão tem participação
 #### Parâmetros necessários:
 - Nenhum
 #### Respostas:
 - 200: [Pagamento[object]]
-- 400:  Resposta[object]
+- 400/401/404:  Resposta[object]
 
 ## POST /api/cadastrar/usuario
 #### Parâmetros necessários:
@@ -59,7 +67,7 @@ Cadastrar conta
 - con_divisoes: [div_id, usu_id, div_valor]
 #### Respostas:
 - 201: Conta[object]
-- 400: Resposta[object]
+- 400/401/404: Resposta[object]
 
 ## POST /api/cadastrar/pagamento *
 Cadastrar um pagamento
@@ -70,7 +78,7 @@ Cadastrar um pagamento
 - pag_mensagem
 #### Respostas:
 - 201: Conta[object]
-- 400: Resposta[object]
+- 400/401/404: Resposta[object]
 
 ## POST /api/atualizar/usuario *
 Realizar atualização de informações do usuário
@@ -83,12 +91,11 @@ Informe os campos que deseja realizar a alteração
 - usu_senha
 #### Respostas:
 - 202: Usuario[object]
-- 400: Resposta[object]
-- 401: Resposta[object]
+- 400/401/403/404: Resposta[object]
 
 
 
-__\* Necessita de autenticação__            
+__\*Obrigatório login__            
 ## Objetos de respostas
     Usuario[object]
     {
@@ -98,7 +105,8 @@ __\* Necessita de autenticação__
         usu_datahora: TEXT
     }
     
-    Conta[object]{
+    Conta[object]
+    {
        con_id:        INTEGER
        usu_object:    Usuario[object]
        con_titulo:    TEXT
@@ -125,6 +133,8 @@ __\* Necessita de autenticação__
         pag_datahora:           TEXT
     }
 
-    Resposta[object]{
-        mensagem: TEXT
+    Resposta[object]
+    {
+        mensagem: TEXT,
+        [informação extra que pode ajudar a encontrar erros]
     }

@@ -1,11 +1,16 @@
+from __future__ import annotations
 from flask import Response
 import json
 import typing
 from database.objects import *
+from errors import KnownError
 
 
-def resposta(mensagem: typing.Union[str, Conta, Usuario, Pagamento, Divisao, typing.List[Conta], typing.List[Usuario], typing.List[Pagamento], typing.List[Divisao]], status: int = 200) -> Response:
-    if type(mensagem) is str:
+def resposta(mensagem: typing.Union[str, KnownError, Conta, Usuario, Pagamento, Divisao, typing.List[Conta], typing.List[Usuario], typing.List[Pagamento], typing.List[Divisao]], status: int = 200) -> Response:
+    if isinstance(mensagem, KnownError):
+        response = mensagem
+        status = mensagem.status
+    elif type(mensagem) is str:
         response = {"mensagem": mensagem}
     else:
         response = mensagem

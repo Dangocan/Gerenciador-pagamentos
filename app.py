@@ -1,11 +1,10 @@
 from functools import wraps
-from flask import Flask, render_template, redirect, url_for, Response, g, session, request
+from flask import Flask, render_template, redirect, url_for, g, session, request
 import os
 import settings
 import utils
 from responses import resposta
-from database.objects import Divisao, Conta, Pagamento, Usuario
-import json
+from database.objects import Conta, Pagamento, Usuario
 
 app = Flask(__name__, static_folder=os.path.join(settings.ROOT_DIRPATH, "static"), template_folder=os.path.join(settings.ROOT_DIRPATH, "templates"))
 app.secret_key = utils.get_keys()["APP_SECRET_KEY"]
@@ -96,7 +95,7 @@ def page_resumo():
 @app.route("/configuracoes")
 @authenticate
 def page_configuracoes():
-    return render_template("configuracoes.html")
+    return render_template("configurações.html")
 
 
 @app.route("/api/cadastrar/usuario", methods=["POST"])
@@ -161,7 +160,7 @@ def api_usuarios():
 @authenticate_api
 def api_contas():
     try:
-        return Conta.get_by_user_id(g.usuario.usu_id)
+        return resposta(Conta.get_by_user_id(g.usuario.usu_id))
     except Exception as e:
         logger.exception(e)
         return resposta("Um erro ocorreu ao buscar contas", 400)
@@ -171,7 +170,7 @@ def api_contas():
 @authenticate_api
 def api_pagamentos():
     try:
-        return Pagamento.get_by_user_id(g.usuario.usu_id)
+        return resposta(Pagamento.get_by_user_id(g.usuario.usu_id))
     except Exception as e:
         logger.exception(e)
         return resposta("Um erro ocorreu ao buscar pagamentos", 400)
@@ -197,6 +196,20 @@ def api_cadastrar_pagamento():
     except Exception as e:
         logger.debug(e)
         return resposta("Não foi possivel cadastrar o pagamento", 400)
+
+
+@app.route("/api/atualizar/usuario", methods=["POST"])
+@authenticate_api
+def api_atualizar_usuario():
+    request_data = request.form.to_dict() or request.get_json(force=True, silent=True) or {}
+    try:
+        if str(request_data.get("usu_id", None)) == str(g.usuario.usu_id):
+            return resposta(Usuario.update(**request_data), 202)
+        else:
+            return resposta("Usuário não tem autorização para alterar.", 401)
+    except Exception as e:
+        logger.debug(e)
+        return resposta("Não foi possivel realizar a atualização", 400)
 
 
 logger = utils.get_logger(__file__)

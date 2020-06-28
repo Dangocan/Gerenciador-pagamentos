@@ -1,6 +1,7 @@
 import os
+import platform
 
-DEVELOPMENT = True
+DEVELOPMENT = platform.system() == "Windows"
 ROOT_DIRPATH = os.path.dirname(__file__)
 LOG_DIRPATH = os.path.join(ROOT_DIRPATH, "log")
 KEYS_PATH = os.path.join(ROOT_DIRPATH, "keys.json")

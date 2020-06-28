@@ -4,15 +4,9 @@ import typing
 from database.objects import *
 
 
-def resposta(dado: typing.Union[str, list, dict, Conta, Usuario, Pagamento, Divisao], status: int = 200, *, msg: str = None) -> Response:
-    if type(msg) is str:
-        data = {
-            "mensagem": dado
-        }
+def resposta(mensagem: typing.Union[str, Conta, Usuario, Pagamento, Divisao, typing.List[Conta], typing.List[Usuario], typing.List[Pagamento], typing.List[Divisao]], status: int = 200) -> Response:
+    if type(mensagem) is str:
+        response = {"mensagem": mensagem}
     else:
-        data = {
-            "item" if type(dado) is not list else "itens": dado
-        }
-    if msg is not None:
-        data.update({"message": msg})
-    return Response(response=json.dumps(data, default=lambda x: x.json(), indent=4), status=status, mimetype="application/json")
+        response = mensagem
+    return Response(response=json.dumps(response, default=lambda x: x.json(), indent=4), status=status, mimetype="application/json")

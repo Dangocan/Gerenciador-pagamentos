@@ -97,7 +97,8 @@ __\*Obrigatório login__
         usu_datahora: TEXT
     }
     
-    Conta[object]{
+    Conta[object]
+    {
        con_id:        INTEGER
        usu_object:    Usuario[object]
        con_titulo:    TEXT
@@ -124,7 +125,8 @@ __\*Obrigatório login__
         pag_datahora:           TEXT
     }
 
-    Resposta[object]{
+    Resposta[object]
+    {
         mensagem: TEXT,
         [informação extra que pode ajudar a encontrar erros]
     }

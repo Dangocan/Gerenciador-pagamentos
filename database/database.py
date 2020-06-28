@@ -19,6 +19,7 @@ class Database:
         cursor.executescript(f.read())
 
     def __enter__(self):
+        logger.debug("Acquiring lock")
         self.lock.acquire()
         logger.debug("Lock acquired")
         return self
@@ -30,40 +31,45 @@ class Database:
         else:
             self.conn.rollback()
             logger.warning("Rolledback")
+
+        logger.debug("Realeasing lock")
         self.lock.release()
-        logger.debug("Lock released")
 
     def insert(self, sql: str, **kwargs):
         try:
+            logger.debug(F"SQL Insert: {sql}")
+            logger.debug(F"Values: {kwargs}")
             self.cursor.execute(sql, kwargs)
             return self.cursor.lastrowid
         except Exception as e:
-            logger.debug(sql, kwargs)
             logger.exception(e)
             raise
 
     def select(self, sql: str, **kwargs):
         try:
+            logger.debug(F"SQL Select: {sql}")
+            logger.debug(F"Values: {kwargs}")
             self.cursor.execute(sql, kwargs)
             return self.cursor.fetchall()
         except Exception as e:
-            logger.debug(sql, kwargs)
             logger.exception(e)
             raise
 
     def update(self, sql: str, **kwargs):
         try:
+            logger.debug(F"SQL Update: {sql}")
+            logger.debug(F"Values: {kwargs}")
             self.cursor.execute(sql, kwargs)
         except Exception as e:
-            logger.debug(sql, kwargs)
             logger.exception(e)
             raise
 
     def delete(self, sql: str, **kwargs):
         try:
+            logger.debug(F"SQL Delete: {sql}")
+            logger.debug(F"Values: {kwargs}")
             self.cursor.execute(sql, kwargs)
         except Exception as e:
-            logger.debug(sql, kwargs)
             logger.exception(e)
             raise
 

@@ -6,7 +6,7 @@ Acesso as informações de todos os usuarios
 - Nenhum
 #### Respostas:
 - 200: [Usuario[object]]
-- 400: Resposta[object]
+- 400/401/404: Resposta[object]
 
 ## POST /api/entrar
 Realiza login do usuário
@@ -31,7 +31,7 @@ Pegar as contas das quais o usuário da sessão tem participação
 - usu_senha
 #### Respostas:
 - 200: [Contas[object]
-- 400: Resposta[object]
+- 400/401/404: Resposta[object]
 
 ## GET /api/pagamentos *
 Pegar pagamentos do qual o usuário da sessão tem participação
@@ -39,7 +39,7 @@ Pegar pagamentos do qual o usuário da sessão tem participação
 - Nenhum
 #### Respostas:
 - 200: [Pagamento[object]]
-- 400:  Resposta[object]
+- 400/401/404:  Resposta[object]
 
 ## POST /api/cadastrar/usuario
 #### Parâmetros necessários:
@@ -59,7 +59,7 @@ Cadastrar conta
 - con_divisoes: [div_id, usu_id, div_valor]
 #### Respostas:
 - 201: Conta[object]
-- 400: Resposta[object]
+- 400/401/404: Resposta[object]
 
 ## POST /api/cadastrar/pagamento *
 Cadastrar um pagamento
@@ -70,7 +70,7 @@ Cadastrar um pagamento
 - pag_mensagem
 #### Respostas:
 - 201: Conta[object]
-- 400: Resposta[object]
+- 400/401/404: Resposta[object]
 
 ## POST /api/atualizar/usuario *
 Realizar atualização de informações do usuário
@@ -83,12 +83,11 @@ Informe os campos que deseja realizar a alteração
 - usu_senha
 #### Respostas:
 - 202: Usuario[object]
-- 400: Resposta[object]
-- 401: Resposta[object]
+- 400/401/403/404: Resposta[object]
 
 
 
-__\* Necessita de autenticação__            
+__\*Obrigatório login__            
 ## Objetos de respostas
     Usuario[object]
     {
@@ -126,5 +125,6 @@ __\* Necessita de autenticação__
     }
 
     Resposta[object]{
-        mensagem: TEXT
+        mensagem: TEXT,
+        [informação extra que pode ajudar a encontrar erros]
     }

@@ -1,11 +1,21 @@
 from __future__ import annotations
 import typing
-from datetime import datetime
 import database.utils
 import database
-import settings
 import utils
 import database.objects
+from errors import KnownError
+
+
+class BillPartError(KnownError):
+    def __init__(self, message: str, status: int = 400):
+        super().__init__(message, status)
+
+
+class BillPartIDNotFoundError(BillPartError):
+    def __init__(self, *, div_id):
+        self.div_id = div_id
+        super().__init__("Divisão não encontrada", 404)
 
 
 class Divisao:
@@ -34,38 +44,24 @@ class Divisao:
             "div_valor": self.div_valor
         }
 
-    # @classmethod
-    # def new(cls, *, con_id, usu_id, div_valor) -> Divisao:
-    #     logger.debug("New division")
-    #     object_dict = {"con_id": con_id, "usu_id": usu_id, "div_valor": div_valor}
-    #     with database.Database() as db:
-    #         sql_insert = database.utils.make_insert("con_id", "usu_id", "div_valor", t_name="divisao")
-    #         logger.debug(f"SQL Insert: {sql_insert}")
-    #         logger.debug(f"SQL Values: {object_dict}")
-    #         div_id = db.insert(sql_insert, **object_dict)
-    #
-    #         sql_select = database.utils.make_select("div_id", t_name="divisao")
-    #         logger.debug(f"SQL Select: {sql_select}")
-    #         return cls(**db.select(sql_select, div_id=div_id)[0])
+    @classmethod
+    def get_by_id(cls, div_id: typing.Union[int, str]) -> Divisao:
+        try:
+            return cls.get(sql_select=database.utils.make_select("div_id", t_name="divisao"), values={"div_id": div_id})[0]
+        except IndexError:
+            raise BillPartIDNotFoundError(div_id=div_id)
 
     @classmethod
-    def get_by_id(cls, div_id) -> Divisao:
-        return cls.get(sql_select=database.utils.make_select("div_id", t_name="divisao"), values={"div_id": div_id})[0]
-
-    @classmethod
-    def get_by_user_id(cls, usu_id) -> typing.List[Divisao]:
+    def get_by_user_id(cls, usu_id: typing.Union[int, str]) -> typing.List[Divisao]:
         return cls.get(sql_select=database.utils.make_select("usu_id", t_name="divisao"), values={"usu_id": usu_id})
 
     @classmethod
     def get(cls, *, sql_select: str, values: dict) -> typing.List[Divisao]:
         with database.Database() as db:
-            logger.debug(f"SQL Select: {sql_select}")
-            logger.debug(f"SQL Values: {values}")
             return [cls(**objct_dict) for objct_dict in db.select(sql_select, **values)]
 
 
 logger = utils.get_logger(__file__)
 
 if __name__ == "__main__":
-    d = Divisao.new(con_id="1", usu_id="1", div_valor="17.5")
-    print(d)
+    pass

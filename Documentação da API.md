@@ -64,7 +64,7 @@ Cadastrar conta
 - con_titulo
 - con_descricao
 - usu_id
-- con_divisoes: [div_id, usu_id, div_valor]
+- con_divisoes: [usu_id, div_valor]
 #### Respostas:
 - 201: Conta[object]
 - 400/401/404: Resposta[object]

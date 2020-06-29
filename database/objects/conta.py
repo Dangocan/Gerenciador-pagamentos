@@ -60,7 +60,7 @@ class Conta:
             "con_titulo": self.con_titulo,
             "con_descricao": self.con_descricao,
             "con_datahora": self.con_datahora,
-            "con_divisions": self.con_divisions
+            "con_divisoes": self.con_divisions
         }
 
     @classmethod

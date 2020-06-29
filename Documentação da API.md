@@ -25,7 +25,7 @@ Informações do usuário
 - 200: [Usuario[object]]
 - 400/401/404: Resposta[object]
 
-## POST /api/sair
+## GET /api/sair
 Realiza o logout do usuário
 #### Parâmetros necessários: 
 - Nenhum

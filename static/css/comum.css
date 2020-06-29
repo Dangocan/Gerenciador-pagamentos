@@ -64,7 +64,7 @@ h2{
     text-transform: uppercase;
     border: 3px solid black;
 }
-
+/*resumo css*/
 .resumo-lista{
     text-align: center;
     font-size: 2em;
@@ -74,6 +74,18 @@ h2{
     text-transform: uppercase;
     border: 2px solid darkblue;
     color: darkblue;
+}
+
+#dividas{
+    border: 2px solid darkred;
+    color: darkred;
+}
+
+.resumo-item{
+    font-size: 1.2rem;
+    font-weight: lighter;
+    margin-top: 0.5em;
+    color:black;
 }
 
 form label{

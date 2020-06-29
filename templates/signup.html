@@ -24,7 +24,10 @@
 
         <main>
             <h2>Cadastre-se</h2>
-            <form>
+            <form id="form-cadastro">
+                <label for="nome">Nome</label>
+                <input type="text" name = "usu_nome" id="nome" class="input-padrao" required placeholder="seunome">
+
                 <label for="email">Email</label>
                 <input type="email" name = "usu_email" id="email" class="input-padrao" required placeholder="seuemail@dominio.com">
 
@@ -38,5 +41,8 @@
         <footer>
             <p class="copyright">&copy; Copyright DalexCo - 2020</p>
         </footer>
+
+        <script src ="\static\js\signup.js"></script>
+
     </body>
 </html>

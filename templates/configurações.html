@@ -26,26 +26,26 @@
 
         <main>
             <h2>Configurações</h2>
-            <form>
+            <form id="form-config">
                 <label for="nome" class="label-config">Mudar nome: </label>
-                <input type="email" name = "usu_name" id="nome" class="input-config" placeholder="novonome">
+                <input type="email" name = "usu_nome" id="nome" class="input-config" placeholder="novonome">
 
                 <label for="email" class="label-config">Mudar email: </label>
                 <input type="email" name = "usu_email" id="email" class="input-config" placeholder="novoemail@dominio.com">
 
                 <label for="mudar-senha" class="label-config">Mudar senha: </label>
-                <input type="password" id="mudar-senha" class="input-config" placeholder="nova senha">
+                <input type="password" name = "usu_senha" id="mudar-senha" class="input-config" placeholder="nova senha">
                 
-                <label for="senha" class="label-config">Senha: </label>
-                <input type="password" id="senha" name = "usu_senha" class="input-config" required placeholder="suasenha">
-
                 <input type= "submit" class = "submit-config">
             </form>
-            <input type= "button" class = "logout-config" value="log out" alt = "oi">
+            <input type= "button" class = "logout-config" value="log out" alt = "sair">
         </main>
 
         <footer>
             <p class="copyright">&copy; Copyright DalexCo - 2020</p>
         </footer>
+
+        <script src="\static\js\config.js"></script>
+
     </body>
 </html>

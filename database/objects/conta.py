@@ -56,11 +56,12 @@ class Conta:
     def json(self) -> dict:
         return {
             "con_id": self.con_id,
-            "usu_object": self.usu_object,
+            "usu_id": self.usu_id,
             "con_titulo": self.con_titulo,
             "con_descricao": self.con_descricao,
             "con_datahora": self.con_datahora,
-            "con_divisoes": self.con_divisions
+            "con_divisoes": self.con_divisions,
+            "usu_object": self.usu_object
         }
 
     @classmethod

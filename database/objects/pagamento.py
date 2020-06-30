@@ -49,11 +49,13 @@ class Pagamento:
     def json(self) -> dict:
         return {
             "pag_id": self.pag_id,
-            "usu_pagador_object": self.usu_pagador_object,
-            "usu_receptor_object": self.usu_receptor_object,
+            "usu_pagador_id": self.usu_pagador_id,
+            "usu_receptor_id": self.usu_receptor_id,
             "pag_valor": self.pag_valor,
             "pag_mensagem": self.pag_mensagem,
             "pag_datahora": self.pag_datahora,
+            "usu_pagador_object": self.usu_pagador_object,
+            "usu_receptor_object": self.usu_receptor_object
         }
 
     @classmethod

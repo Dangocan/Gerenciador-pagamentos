@@ -40,8 +40,9 @@ class Divisao:
         return {
             "div_id": self.div_id,
             "con_id": self.con_id,
-            "usu_object": self.usu_object,
-            "div_valor": self.div_valor
+            "usu_id": self.usu_id,
+            "div_valor": self.div_valor,
+            "usu_object": self.usu_object
         }
 
     @classmethod

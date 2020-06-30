@@ -64,7 +64,7 @@ Cadastrar conta
 - con_titulo
 - con_descricao
 - usu_id
-- con_divisoes: [usu_id, div_valor]
+- con_divisoes: [{usu_id, div_valor}]
 #### Respostas:
 - 201: Conta[object]
 - 400/401/404: Resposta[object]
@@ -108,11 +108,12 @@ __\*Obrigatório login__
     Conta[object]
     {
        con_id:        INTEGER
-       usu_object:    Usuario[object]
+	   usu_id: 		  INTEGER
        con_titulo:    TEXT
        con_descricao: TEXT    NULL,
        con_datahora:  TEXT
        con_divisoes:  [Divisao[object]]
+	   usu_object:    Usuario[object]
     }
 
     Divisao[object]
@@ -121,16 +122,19 @@ __\*Obrigatório login__
         con_id:    INTEGER
         usu_id:    INTEGER
         div_valor: REAL
+		usu_object: Usuario[object]
     }
 
     Pagamento[object]
     {
         pag_id:                 INTEGER
-        usu_pagador_object:     Usuario[object]
-        usu_receptor_object:    Usuario[object]
+		usu_pagador_id:         INTEGER
+        usu_receptor_id:        INTEGER
         pag_valor:              REAL
         pag_mensagem:           TEXT    NULL
         pag_datahora:           TEXT
+		usu_pagador_object:     Usuario[object]
+        usu_receptor_object:    Usuario[object]
     }
 
     Resposta[object]

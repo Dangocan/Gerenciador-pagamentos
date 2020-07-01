@@ -58,7 +58,6 @@ function carregaIdUsuario(){
         if(xhr.status == 200){
             let resposta = xhr.responseText;
             let usuario = JSON.parse(resposta);
-            console.log( usuario, usuario["usu_id"], usuario.usu_id)
             id = usuario["usu_id"];
 
         }else{
@@ -92,10 +91,8 @@ function atualizaUsuario(id){
         
         if(xhr.status == 202){
             alert("Mudança efetuada com sucesso");
-            console.log(xhr.responseText);
             form.reset();
         }else{
-            console.log(xhr.responseText);
             alert("Mudança falhou");
         }
 

@@ -31,6 +31,11 @@ class ValueNaNError(BillError):
         super().__init__("Valor da divisão deve ser um número real", 400)
 
 
+class EmptyTitleError(BillError):
+    def __init__(self):
+        super().__init__("Título da conta não pode ser vazio", 400)
+
+
 class Conta:
     def __init__(self, con_id, usu_id, con_titulo, con_descricao, con_datahora):
         self.con_id = con_id
@@ -74,6 +79,8 @@ class Conta:
     def new_conta(cls, *, con_titulo, con_descricao, usu_id, con_divisoes) -> Conta:
         logger.debug("New bill")
         con_datahora = datetime.utcnow().strftime(settings.STDDATETIMEFORMAT)
+        if con_titulo == "":
+            raise EmptyTitleError()
         conta_dict = {"usu_id": usu_id, "con_titulo": con_titulo, "con_descricao": con_descricao, "con_datahora": con_datahora}
         if len(con_divisoes) == 0:
             raise BillNotEnoughPartsError()

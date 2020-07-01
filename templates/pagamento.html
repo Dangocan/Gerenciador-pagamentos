@@ -27,18 +27,18 @@
 
         <main>
             <h2>Novo pagamento</h2>
-            <form >
+            <form id="form-pag">
                 <label for="mensagem">Mensagem:</label>
-                <input type="text" id = "mensagem" name = "mensagem" class="input-padrao" placeholder="mensagem">
+                <input type="text" id = "mensagem" name = "pag_mensagem" class="input-padrao" placeholder="mensagem">
 
                 <label for="valor-pagamento">Valor do pagamento:</label>
-                <input type="text" id = "valor-pagamento" class="input-padrao" required placeholder="R$xx-xx">
+                <input type="text" id = "valor-pagamento" name ="pag_valor" class="input-padrao" required placeholder="R$xx-xx">
 
                 <label for="usuario-pagador">ID do usuario pagador:</label>
-                <input type="text" id = "usuario-pagador" name = "usu_id_pagador" class="input-padrao" required placeholder="0000">
+                <input type="text" id = "usuario-pagador" name = "usu_pagador_id" class="input-padrao" required placeholder="0000">
 
                 <label for="usuario-receptor">ID do usuario receptor:</label>
-                <input type="text" id = "usuario-receptor" name = "usu_id_receptor" class="input-padrao" required placeholder="0000">
+                <input type="text" id = "usuario-receptor" name = "usu_receptor_id" class="input-padrao" required placeholder="0000">
 
                 <input type= "submit" class = "submit">
             </form>
@@ -47,5 +47,8 @@
         <footer>
             <p class="copyright">&copy; Copyright DalexCo - 2020</p>
         </footer>
+
+        <script src="\static\js\pagamento.js"></script>
+
     </body>
 </html>

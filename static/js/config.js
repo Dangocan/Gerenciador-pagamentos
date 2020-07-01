@@ -32,21 +32,18 @@ submit.addEventListener("click", function(event){
 async function init(){
     const id = await carregaIdUsuario();
     
-     console.log(id);
+    console.log(id);
 
     atualizaUsuario(id);
     
 }
 
-/*function obtemMudancasDoFormulario(form){
-    var usuario = {}
+window.onload = exibeId;
 
-    if(form.usu_email.value.length > 0 ) usuario["usu_email"] = form.usu_email.value;
-    if(form.usu_senha.value.length > 0 ) usuario["usu_senha"] = form.usu_senha.value;
-    if(form.usu_nome.value.length > 0 ) usuario["usu_nome"] = form.usu_nome.value;
-
-    return usuario;
-}*/
+function exibeId(){
+    let usuId = document.querySelector("#id");
+    usuId.innerHTML = "ID de usuário: "+carregaIdUsuario();
+}
 
 function carregaIdUsuario(){
    

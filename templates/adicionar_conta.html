@@ -27,25 +27,28 @@
 
         <main>
             <h2>Nova conta</h2>
-            <form >
+            <form id ="form-add">
                 <label for="titulo">Título</label>
-                <input type="text" id = "titulo" name = "titulo" class="input-padrao" required placeholder="titulo">
+                <input type="text" id = "titulo" name = "con_titulo" class="input-padrao" required placeholder="titulo">
 
-                <label for="descrição">descrição</label>
-                <input type="text" id = "descrição" name = "description" class="input-padrao" required placeholder="descrição">
+                <label for="descrição">Descrição</label>
+                <input type="text" id = "descrição" name = "con_descricao" class="input-padrao" required placeholder="descrição">
                 
                 <label for="valor-total">Valor total</label>
                 <input type="text" id = "valor-total" class="input-padrao" required placeholder="R$xx-xx">
 
-                <label for="nova-divisao">Divisões: </label>
-                <input type="button" id = "nova-divisao" class="input-padrao" value="+">
+                <label>Divisões: </label>
+                <input type="button" id = "nova-divisao" class="input-padrao" value="adicionar">
+                <input type="button" id = "exclui-divisao" class="input-padrao" value="remover">
 
-                <label for="id-usuario-divisao">ID de usuario</label>
-                <input type="text" id = "id-usuario-divisao" name = "usu_id" class="input-padrao" required placeholder="0000">
+                <div id="divisoes">
+                    <label for="id-usuario-divisao">ID de usuario</label>
+                    <input type="text" id = "id-usuario-divisao" name = "usu_id1" class="input-padrao" required placeholder="0000">
 
-                <label for="valor-total">Parte na divisão</label>
-                <input type="text" id = "valor-total" class="input-padrao" required placeholder="R$xx-xx">
-
+                    <label for="valor-total">Parte na divisão</label>
+                    <input type="text" id = "valor-total" class="input-padrao" name="div_valor1" required placeholder="R$xx-xx">
+                </div>
+        
                 <input type= "submit" class = "submit">
             </form>
         </main>
@@ -53,5 +56,8 @@
         <footer>
             <p class="copyright">&copy; Copyright DalexCo - 2020</p>
         </footer>
+
+        <script src = "\static\js\adicionar_conta.js"></script>
+
     </body>
 </html>

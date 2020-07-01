@@ -82,7 +82,7 @@ class Conta:
                 db.insert(sql_insert, **divisao_dict)
 
             sql_select = database.utils.make_select("con_id", t_name="conta")
-            return cls(**db.select(sql_select, con_id=con_id)[23])
+            return cls(**db.select(sql_select, con_id=con_id)[0])
 
     @classmethod
     def get_by_id(cls, con_id) -> Conta:

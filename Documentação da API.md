@@ -1,3 +1,11 @@
+# URL das paginas
+    resumo(principal): /resumo
+    login: /entrar
+    signup /cadastrar
+    adicionar_conta: /conta
+    pagamento: /pagamento
+    configuracoes: /configuracoes
+
 # URLs de acesso da API
 __Os parâmetros devem ser todos passados em forma de JSON__
 ## GET /api/get/usuarios *

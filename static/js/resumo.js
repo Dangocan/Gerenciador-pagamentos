@@ -61,6 +61,7 @@ Promise.all([
             li.classList.add("resumo-item");
             li.innerHTML = `Voce deve: R$ ${Math.abs((resumo[usu_id]).toFixed(2))} ao usuário de ID: ${usu_id}`;
             ul.appendChild(li);
+            
         }
     });
 });

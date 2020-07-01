@@ -8,6 +8,14 @@ Acesso as informações de todos os usuarios
 - 200: [Usuario[object]]
 - 400/401/404: Resposta[object]
 
+## GET /api/get/usuario/{usu_id} *
+Acesso as informações de um usuário pelo seu id
+#### Parâmetros necessários: 
+- Nenhum
+#### Respostas:
+- 200: Usuario[object]
+- 400/401/404: Resposta[object]
+
 ## POST /api/entrar
 Realiza login do usuário
 #### Parâmetros necessários: 

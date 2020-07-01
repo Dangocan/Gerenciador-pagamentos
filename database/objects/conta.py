@@ -25,6 +25,12 @@ class BillNotEnoughPartsError(BillError):
         super().__init__("Conta não tem divisões", 400)
 
 
+class ValueNaNError(BillError):
+    def __init__(self, *, div_valor):
+        self.div_valor = div_valor
+        super().__init__("Valor da divisão deve ser um número real", 400)
+
+
 class Conta:
     def __init__(self, con_id, usu_id, con_titulo, con_descricao, con_datahora):
         self.con_id = con_id
@@ -78,6 +84,11 @@ class Conta:
 
             divisao_dicts = [{"con_id": con_id, "usu_id": div["usu_id"], "div_valor": div["div_valor"]} for div in con_divisoes]
             for divisao_dict in divisao_dicts:
+                try:
+                    divisao_dict["div_valor"] = float(divisao_dict["div_valor"])
+                except ValueError:
+                    raise ValueNaNError(div_valor=divisao_dict["div_valor"])
+
                 sql_insert = database.utils.make_insert("con_id", "usu_id", "div_valor", t_name="divisao")
                 db.insert(sql_insert, **divisao_dict)
 

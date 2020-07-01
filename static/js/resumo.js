@@ -51,7 +51,7 @@ Promise.all([
             let ul = document.querySelector("#devedores");
             let li = document.createElement("li");
             li.classList.add("resumo-item");
-            li.innerHTML = `Usuario de ID: ${usu_id} te deve: ${resumo[usu_id]}`;
+            li.innerHTML = `Usuario de ID: ${usu_id} te deve: R$ ${Math.abs((resumo[usu_id]).toFixed(2))}`;
             ul.appendChild(li);
         }
         
@@ -59,7 +59,7 @@ Promise.all([
             let ul = document.querySelector("#dividas");
             let li = document.createElement("li");
             li.classList.add("resumo-item");
-            li.innerHTML = `Voce deve: ${Math.abs(resumo[usu_id])} ao usuário de ID: ${usu_id}`;
+            li.innerHTML = `Voce deve: R$ ${Math.abs((resumo[usu_id]).toFixed(2))} ao usuário de ID: ${usu_id}`;
             ul.appendChild(li);
         }
     });

@@ -18,17 +18,18 @@ submit.addEventListener("click", function(event){
 
     xhr.addEventListener("load", function(){
         
-        if(xhr.status == 200){
+        if(xhr.status == 201){
             alert("conta adicionada com sucesso!");
-           // window.location.href = "/conta";
+            form.reset();
 
         }else{
            alert("Falha ao adicionar conta");
-           form.reset();
         }
 
       
     });
+
+    console.log(conta);
 
     xhr.send(JSON.stringify(conta));
 
@@ -68,7 +69,6 @@ botaoAdicionaDivisao.addEventListener("click", function(){
 });
 
 botaoExcluiDivisao.addEventListener("click", function(){
-    console.log("fuiclicado");
     contadorDivisoes = 0;
     let divisoes = document.querySelector("#divisoes");
     divisoes.innerHTML = "";
@@ -84,7 +84,6 @@ function obtemContaDoFormulario(form, contadorDivisoes){
 
     for(let i = 1; i <= contadorDivisoes; i++){
         conta["con_divisoes"].push({usu_id: form[`usu_id${i}`].value, div_valor: form[`div_valor${i}`].value});
-        console.log(conta["con_divisoes"]["usu_id"]);
     }
 
     return conta;

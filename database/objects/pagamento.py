@@ -20,6 +20,20 @@ class PaymentIDNotFoundError(PaymentError):
         super().__init__("Pagamento não encontrado", 404)
 
 
+class SameUserError(PaymentError):
+    def __init__(self, *, usu_pagador_id, usu_receptor_id):
+        self.usu_pagador_id = usu_pagador_id
+        self.usu_receptor_id = usu_receptor_id
+        super().__init__("Usuário não pode pagar para ele mesmo", 400)
+
+
+class NaNError(PaymentError):
+    def __init__(self, *, usu_pagador_id, usu_receptor_id):
+        self.usu_pagador_id = usu_pagador_id
+        self.usu_receptor_id = usu_receptor_id
+        super().__init__("Usuários devem ser números", 400)
+
+
 class Pagamento:
     def __init__(self, pag_id, usu_pagador_id, usu_receptor_id, pag_valor, pag_mensagem, pag_datahora):
         self.pag_id = pag_id
@@ -63,6 +77,12 @@ class Pagamento:
         logger.debug("New payment")
         pag_datahora = datetime.utcnow().strftime(settings.STDDATETIMEFORMAT)
         object_dict = {"usu_pagador_id": usu_pagador_id, "usu_receptor_id": usu_receptor_id, "pag_valor": pag_valor, "pag_mensagem": pag_mensagem, "pag_datahora": pag_datahora}
+        try:
+            if int(usu_pagador_id) == int(usu_receptor_id):
+                raise SameUserError(usu_pagador_id=usu_pagador_id, usu_receptor_id=usu_receptor_id)
+        except ValueError:
+            raise NaNError(usu_pagador_id=usu_pagador_id, usu_receptor_id=usu_receptor_id)
+
         with database.Database() as db:
             sql_insert = database.utils.make_insert("usu_pagador_id", "usu_receptor_id", "pag_valor", "pag_mensagem", "pag_datahora", t_name="pagamento")
             pag_id = db.insert(sql_insert, **object_dict)

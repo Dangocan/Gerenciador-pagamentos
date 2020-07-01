@@ -140,6 +140,18 @@ def api_get_usuarios():
         return resposta("Um erro desconhecido ocorreu", 400)
 
 
+@app.route("/api/get/usuario/<string:usu_id>")
+@authenticate_api
+def api_get_usuario(usu_id):
+    try:
+        return resposta(Usuario.get_by_id(usu_id))
+    except KnownError as e:
+        return resposta(e)
+    except Exception as e:
+        logger.exception(e)
+        return resposta("Um erro desconhecido ocorreu", 400)
+
+
 @app.route("/api/get/contas")
 @authenticate_api
 def api_get_contas():

@@ -4,9 +4,14 @@ import sqlite3
 import os
 import utils
 
+logger = utils.get_logger(__file__)
 CURRENT_DIRPATH = os.path.dirname(__file__)
 TABLES_PATH = os.path.join(CURRENT_DIRPATH, "table.sql")
-DATABASE_PATH = os.path.join(settings.ROOT_DIRPATH, "data.db")
+DATABASE_NAME = "dados.db"
+if settings.DEVELOPMENT:
+    DATABASE_NAME = "data.db"
+    logger.warning("Using {DATABASE_NAME} as current database")
+DATABASE_PATH = os.path.join(settings.ROOT_DIRPATH, DATABASE_NAME)
 
 
 class Database:
@@ -74,6 +79,3 @@ class Database:
         except Exception as e:
             logger.exception(e)
             raise
-
-
-logger = utils.get_logger(__file__)

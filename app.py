@@ -217,4 +217,6 @@ def api_atualizar_usuario():
 
 logger = utils.get_logger(__file__)
 if __name__ == "__main__":
-    app.run("0.0.0.0", debug=True)
+    utils.get_logger(__file__, log_name="werkzeug")
+    app.run("0.0.0.0", debug=settings.DEVELOPMENT)
+

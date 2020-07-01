@@ -30,6 +30,8 @@ class Database:
             logger.debug("Commited")
         else:
             self.conn.rollback()
+            logger.debug(exc_type)
+            logger.debug(exc_val)
             logger.warning("Rolledback")
 
         logger.debug("Realeasing lock")

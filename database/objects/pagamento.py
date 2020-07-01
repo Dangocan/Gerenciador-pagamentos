@@ -20,6 +20,26 @@ class PaymentIDNotFoundError(PaymentError):
         super().__init__("Pagamento não encontrado", 404)
 
 
+class SameUserError(PaymentError):
+    def __init__(self, *, usu_pagador_id, usu_receptor_id):
+        self.usu_pagador_id = usu_pagador_id
+        self.usu_receptor_id = usu_receptor_id
+        super().__init__("Usuário não pode pagar para ele mesmo", 400)
+
+
+class UserNaNError(PaymentError):
+    def __init__(self, *, usu_pagador_id, usu_receptor_id):
+        self.usu_pagador_id = usu_pagador_id
+        self.usu_receptor_id = usu_receptor_id
+        super().__init__("Usuários devem ser números", 400)
+
+
+class ValueNaNError(PaymentError):
+    def __init__(self, *, pag_valor):
+        self.pag_valor = pag_valor
+        super().__init__("Valor deve ser um número real", 400)
+
+
 class Pagamento:
     def __init__(self, pag_id, usu_pagador_id, usu_receptor_id, pag_valor, pag_mensagem, pag_datahora):
         self.pag_id = pag_id
@@ -63,6 +83,15 @@ class Pagamento:
         logger.debug("New payment")
         pag_datahora = datetime.utcnow().strftime(settings.STDDATETIMEFORMAT)
         object_dict = {"usu_pagador_id": usu_pagador_id, "usu_receptor_id": usu_receptor_id, "pag_valor": pag_valor, "pag_mensagem": pag_mensagem, "pag_datahora": pag_datahora}
+        try:
+            if int(usu_pagador_id) == int(usu_receptor_id):
+                raise SameUserError(usu_pagador_id=usu_pagador_id, usu_receptor_id=usu_receptor_id)
+        except ValueError:
+            raise UserNaNError(usu_pagador_id=usu_pagador_id, usu_receptor_id=usu_receptor_id)
+        try:
+            pag_valor = float(pag_valor)
+        except ValueError:
+            raise ValueNaNError(pag_valor=pag_valor)
         with database.Database() as db:
             sql_insert = database.utils.make_insert("usu_pagador_id", "usu_receptor_id", "pag_valor", "pag_mensagem", "pag_datahora", t_name="pagamento")
             pag_id = db.insert(sql_insert, **object_dict)
@@ -95,5 +124,5 @@ logger = utils.get_logger(__file__)
 
 if __name__ == "__main__":
     pass
-    # p = Pagamento.new(usu_pagador_id="1", usu_receptor_id="1", pag_valor="17", pag_mensagem="mensagem_minha")
-    # print(p)
+    p = Pagamento.new(usu_pagador_id="1", usu_receptor_id="2", pag_valor="a", pag_mensagem="mensagem_minha")
+    print(type(p.pag_valor))

@@ -2,40 +2,46 @@
 <html lang = "pt-br">
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        
         <title>Cadastrar</title>
-
+        
         <link rel="stylesheet" href="\static\css\reset.css">
         <link rel="stylesheet" href="\static\css\comum.css">
     </head>
 
     <body>
         <header>
-            <div class="header-box">
-				<h1>Gerenciador<br>pagamentos</h1>
-
+            <section class="header-box">
+                <div class="logo">
+                    <h1>Pay<br>Gen</h1>
+                </div>
+    
 				<nav>
 					<ul class="header-list">
 						<li><a href="/entrar">Login</a></li>
-						<li><a href="/cadastrar">Cadastrar</a></li>
+						<li><a href="/cadastrar" class="ativo">Cadastrar</a></li>
 					</ul>
 				</nav>
-			</div>
+			</section>
         </header>
 
         <main>
-            <h2>Cadastre-se</h2>
-            <form id="form-cadastro">
-                <label for="nome">Nome</label>
-                <input type="text" name = "usu_nome" id="nome" class="input-padrao" required placeholder="seunome">
-
-                <label for="email">Email</label>
-                <input type="email" name = "usu_email" id="email" class="input-padrao" required placeholder="seuemail@dominio.com">
-
-                <label for="senha">Senha</label>
-                <input type="password" id="senha" name = "usu_senha" class="input-padrao" required placeholder="suasenha">
-
-                <input type= "submit" class = "submit">
-            </form>
+            <section class="comum-box">
+                <h2>Cadastre-se</h2>
+                <form id="form-cadastro">
+                    <label for="nome">Nome</label>
+                    <input type="text" name = "usu_nome" id="nome" class="input-padrao" required placeholder="seunome">
+    
+                    <label for="email">Email</label>
+                    <input type="email" name = "usu_email" id="email" class="input-padrao" required placeholder="seuemail@dominio.com">
+    
+                    <label for="senha">Senha</label>
+                    <input type="password" id="senha" name = "usu_senha" class="input-padrao" required placeholder="suasenha">
+    
+                    <input type= "submit" class = "submit">
+                </form>
+            </section>            
         </main>
 
         <footer>

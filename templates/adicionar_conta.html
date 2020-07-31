@@ -2,6 +2,8 @@
 <html lang = "pt-br">
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+
         <title>Adicionar Conta</title>
 
         <link rel="stylesheet" href="\static\css\reset.css">
@@ -11,43 +13,47 @@
 
     <body>
         <header>
-            <div class="header-box">
-				<h1>Gerenciador<br>pagamentos</h1>
-
+            <section class="header-box">
+                <div class="logo">
+                    <h1>Pay<br>Gen</h1>
+                </div>
+    
 				<nav>
 					<ul class="header-list">
-						<li><a href="/conta">Adicionar conta</a></li>
+						<li><a href="/conta" class="ativo">Adicionar conta</a></li>
                         <li><a href="/pagamento">Pagamento</a></li>
                         <li><a href="/resumo">Resumo</a></li>
                         <li><a href="/configuracoes">&#9881;</a></li>
 					</ul>
 				</nav>
-			</div>
+			</section>
         </header>
 
         <main>
-            <h2>Nova conta</h2>
-            <form id ="form-add">
-                <label for="titulo">Título</label>
-                <input type="text" id = "titulo" name = "con_titulo" class="input-padrao" required placeholder="titulo">
-
-                <label for="descrição">Descrição</label>
-                <input type="text" id = "descrição" name = "con_descricao" class="input-padrao" required placeholder="descrição">
-                
-                <label>Divisões: </label>
-                <input type="button" id = "nova-divisao" class="input-padrao" value="adicionar">
-                <input type="button" id = "exclui-divisao" class="input-padrao" value="remover">
-
-                <div id="divisoes">
-                    <label for="id-usuario-divisao">ID de usuario</label>
-                    <input type="text" id = "id-usuario-divisao" name = "usu_id1" class="input-padrao" required placeholder="0000">
-
-                    <label for="valor-total">Parte na divisão</label>
-                    <input type="text" id = "valor-total" class="input-padrao" name="div_valor1" required placeholder="R$xx-xx">
-                </div>
-        
-                <input type= "submit" class = "submit">
-            </form>
+            <section class="comum-box">
+                <h2>Nova conta</h2>
+                <form id ="form-add">
+                    <label for="titulo">Título</label>
+                    <input type="text" id = "titulo" name = "con_titulo" class="input-padrao" required placeholder="titulo">
+    
+                    <label for="descrição">Descrição</label>
+                    <input type="text" id = "descrição" name = "con_descricao" class="input-padrao" required placeholder="descrição">
+                    
+                    <label>Divisões: </label>
+                    <input type="button" id = "nova-divisao" class="input-padrao" value="adicionar">
+                    <input type="button" id = "exclui-divisao" class="input-padrao" value="remover">
+    
+                    <div id="divisoes">
+                        <label for="id-usuario-divisao">ID de usuario</label>
+                        <input type="text" id = "id-usuario-divisao" name = "usu_id1" class="input-padrao" required placeholder="0000">
+    
+                        <label for="valor-total">Parte na divisão</label>
+                        <input type="text" id = "valor-total" class="input-padrao" name="div_valor1" required placeholder="R$xx-xx">
+                    </div>
+            
+                    <input type= "submit" class = "submit">
+                </form>
+            </section>
         </main>
 
         <footer>

@@ -2,6 +2,8 @@
 <html lang = "pt-br">
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+
         <title>Pagamento</title>
 
         <link rel="stylesheet" href="\static\css\reset.css">
@@ -11,37 +13,41 @@
 
     <body>
         <header>
-            <div class="header-box">
-				<h1>Gerenciador<br>pagamentos</h1>
+            <section class="header-box">
+				<div class="logo">
+                    <h1>Pay<br>Gen</h1>
+                </div>
 
 				<nav>
 					<ul class="header-list">
 						<li><a href="/conta">Adicionar conta</a></li>
-                        <li><a href="/pagamento">Pagamento</a></li>
+                        <li><a href="/pagamento" class="ativo">Pagamento</a></li>
                         <li><a href="/resumo">Resumo</a></li>
                         <li><a href="/configuracoes">&#9881;</a></li>
 					</ul>
 				</nav>
-			</div>
+            </section>
         </header>
 
         <main>
-            <h2>Novo pagamento</h2>
-            <form id="form-pag">
-                <label for="mensagem">Mensagem:</label>
-                <input type="text" id = "mensagem" name = "pag_mensagem" class="input-padrao" placeholder="mensagem">
-
-                <label for="valor-pagamento">Valor do pagamento:</label>
-                <input type="text" id = "valor-pagamento" name ="pag_valor" class="input-padrao" required placeholder="R$xx-xx">
-
-                <label for="usuario-pagador">ID do usuario pagador:</label>
-                <input type="text" id = "usuario-pagador" name = "usu_pagador_id" class="input-padrao" required placeholder="0000">
-
-                <label for="usuario-receptor">ID do usuario receptor:</label>
-                <input type="text" id = "usuario-receptor" name = "usu_receptor_id" class="input-padrao" required placeholder="0000">
-
-                <input type= "submit" class = "submit">
-            </form>
+            <section class="comum-box">
+                <h2>Novo pagamento</h2>
+                <form id="form-pag">
+                    <label for="mensagem">Mensagem:</label>
+                    <input type="text" id = "mensagem" name = "pag_mensagem" class="input-padrao" placeholder="mensagem">
+    
+                    <label for="valor-pagamento">Valor do pagamento:</label>
+                    <input type="text" id = "valor-pagamento" name ="pag_valor" class="input-padrao" required placeholder="R$xx-xx">
+    
+                    <label for="usuario-pagador">ID do usuario pagador:</label>
+                    <input type="text" id = "usuario-pagador" name = "usu_pagador_id" class="input-padrao" required placeholder="0000">
+    
+                    <label for="usuario-receptor">ID do usuario receptor:</label>
+                    <input type="text" id = "usuario-receptor" name = "usu_receptor_id" class="input-padrao" required placeholder="0000">
+    
+                    <input type= "submit" class = "submit">
+                </form>
+            </section>
         </main>
 
         <footer>

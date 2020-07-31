@@ -2,6 +2,7 @@
 <html lang = "pt-br">
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
         <title>Resumo</title>
 
         <link rel="stylesheet" href="\static\css\reset.css">
@@ -10,25 +11,26 @@
 
     <body>
         <header>
-            <div class="header-box">
-				<h1>Gerenciador<br>pagamentos</h1>
-
+            <section class="header-box">
+                <div class="logo">
+                    <h1>Pay<br>Gen</h1>
+                </div>
+    
 				<nav>
 					<ul class="header-list">
 						<li><a href="/conta">Adicionar conta</a></li>
                         <li><a href="/pagamento">Pagamento</a></li>
-                        <li><a href="/resumo">Resumo</a></li>
+                        <li><a href="/resumo" class="ativo">Resumo</a></li>
                         <li><a href="/configuracoes">&#9881;</a></li>
 					</ul>
 				</nav>
-			</div>
+			</section>
         </header>
 
-        <main>
-            <h2>Resumo</h2>
-            <ul class="resumo-lista" id ="dividas">Dívidas
+        <main class="main-resumo">
+            <ul class="resumo-lista dividas" id ="dividas">Dívidas
             </ul>
-            <ul class="resumo-lista" id ="devedores">Devedores
+            <ul class="resumo-lista devedores" id ="devedores">Devedores
             </ul>
         </main>
 

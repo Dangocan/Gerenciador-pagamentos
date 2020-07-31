@@ -2,6 +2,8 @@
 <html lang = "pt-br">
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+
         <title>Configurações</title>
 
         <link rel="stylesheet" href="\static\css\reset.css">
@@ -10,8 +12,10 @@
 
     <body>
         <header>
-            <div class="header-box">
-				<h1>Gerenciador<br>pagamentos</h1>
+            <section class="header-box">
+				<div class="logo">
+                    <h1>Pay<br>Gen</h1>
+                </div>
 
 				<nav>
 					<ul class="header-list">
@@ -21,25 +25,27 @@
                         <li><a href="/configuracoes">&#9881;</a></li>
 					</ul>
 				</nav>
-			</div>
+			</section>
         </header>
 
         <main>
-            <h2>Configurações</h2>
-            <p id = "id"></p>
-            <form id="form-config">
-                <label for="nome" class="label-config">Mudar nome: </label>
-                <input type="email" name = "usu_nome" id="nome" class="input-config" placeholder="novonome">
-
-                <label for="email" class="label-config">Mudar email: </label>
-                <input type="email" name = "usu_email" id="email" class="input-config" placeholder="novoemail@dominio.com">
-
-                <label for="mudar-senha" class="label-config">Mudar senha: </label>
-                <input type="password" name = "usu_senha" id="mudar-senha" class="input-config" placeholder="nova senha">
-                
-                <input type= "submit" class = "submit-config">
-            </form>
-            <input type= "button" class = "logout-config" value="log out" alt = "sair">
+            <section class="comum-box">
+                <h2>Configurações</h2>
+                <p id = "id"></p>
+                <form id="form-config">
+                    <label for="nome" class="label-config">Mudar nome: </label>
+                    <input type="email" name = "usu_nome" id="nome" class="input-config" placeholder="novonome">
+    
+                    <label for="email" class="label-config">Mudar email: </label>
+                    <input type="email" name = "usu_email" id="email" class="input-config" placeholder="novoemail@dominio.com">
+    
+                    <label for="mudar-senha" class="label-config">Mudar senha: </label>
+                    <input type="password" name = "usu_senha" id="mudar-senha" class="input-config" placeholder="nova senha">
+                    
+                    <input type= "submit" class = "submit-config">
+                </form>
+                <input type= "button" class = "logout-config" value="logout" alt = "sair">
+            </section>
         </main>
 
         <footer>
